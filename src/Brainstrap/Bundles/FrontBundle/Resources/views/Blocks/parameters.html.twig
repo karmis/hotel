@@ -1,0 +1,71 @@
+{% if parameters is not defined %}
+    {% set parameters = [] %}
+{% endif %}
+{% if has_value is not defined %}
+    {% set has_value = true %}
+{% endif %}
+{% if parameters|length > 0 %}
+    <table class="table bs-table">
+        <thead>
+        <th>
+            Параметр
+        </th>
+        {% if has_value == true %}
+            <th>
+                Значение
+            </th>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if allow_edit == true %}
+                <th>
+                    Изменить
+                </th>
+            {% endif %}
+        {% endif %}
+        </thead>
+        <tbody>
+
+        {% for parameter in parameters %}
+            <tr>
+                <td>
+                    <strong>
+                        {{ parameter.caption }}
+                    </strong>
+                </td>
+                {% if has_value == true %}
+                    <td>
+                        {{ parameter.value|default('нет значения') }}
+                    </td>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% if allow_edit == true %}
+                        <td>
+                            <a href="{{ path(prefix_route~"_edit", {id:parameter.id}) }}"
+                               class="btn btn-small btn-black">
+                                Изменить
+                            </a>
+                        </td>
+                    {% endif %}
+                {% endif %}
+
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <br/>
+    {% if allow_add == true %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path(prefix_route~"_new") }}" class="btn btn-small btn-black">
+                Добавить
+            </a>
+        {% endif %}
+    {% endif %}
+
+{% else %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+    'label': "Параметры не найдены",
+    'body':'Параметры для этого номера не указаны',
+    'block_type':'attention'
+    } only %}
+{% endif %}

@@ -1,0 +1,9 @@
+holiday_holiday:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Holiday\Holiday:index" }
+
+holiday_holiday_show:
+    path:     /{id}/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Holiday\Holiday:show" }
+    requirements:
+        id:  \d+

@@ -1,0 +1,8 @@
+review_review:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Review\Review:index" }
+
+review_review_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Review\Review:create" }
+    requirements: { _method: post }

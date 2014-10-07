@@ -1,0 +1,125 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+{% set active_item_menu = "booking" %}
+{% set template_letter = "Б" %}
+{% set template_caption= "Бронирование" %}
+{% set template_descr= "список заявок на бронирование" %}
+{% set content_right_caption = "список заявок на бронирование" %}
+{% set prefix_route = "object_objectbooking" %}
+{% set description_length = 250 %}
+{% set detail_type = "show" %}
+{% block content %}
+    <div class="md-body md-room-detail clearfix">
+        <div class="grid_9 md-main">
+
+            <section class="heading-absolute box-sidebar align-center">
+                <header class="box-heading heading-large">
+                    {{ template_letter|default('') }}
+                    <div class="decription-override" style="margin-top: -38px;">
+                        <h2 class="h1" style="font-size: 23px;">
+                            {{ template_caption|default('') }}
+                        </h2>
+
+                        <p>
+                            {{ template_descr|default('') }}
+                        </p>
+                    </div>
+                </header>
+            </section>
+
+            <div class="row">
+                {% block flashes %}{% endblock flashes %}
+                <div class="box-booking booking-inline">
+                    <div class="form-group last">
+                        {% block form_filter %}
+
+                        {% endblock form_filter %}
+                    </div>
+                </div>
+                {#<div class="row slide-preview-room">#}
+
+                {#</div>#}
+
+            </div>
+
+            <div class="line"></div>
+
+
+        </div>
+
+    </div>
+    <br/><br/><br/>
+    <div class="preview-content">
+        <table class="bs-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Бронирование для номера</th>
+                <th>Имя к.л.</th>
+                <th>Фамилия к.л.</th>
+                <th>Телефон к.л.</th>
+                <th>Email к.л.</th>
+                <th>Количество взрослых</th>
+                <th>Количество детей</th>
+                <th>Заезд</th>
+                <th>Съезд</th>
+                <th>Одобрен?</th>
+                <th>Статус номера</th>
+                <th>Детально</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for key,entity in entities %}
+                <tr>
+                    <td>{{ key+1 }}</td>
+                    <td>
+                        <a href="{{ path('object_object_show', {id: entity.object.id}) }}" target="_blank">
+                            {{ entity.object.caption }}
+                        </a>
+                    </td>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.sname }}</td>
+                    <td>{{ entity.phone }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.countAdult }}</td>
+                    <td>{{ entity.countChild }}</td>
+                    <td>{{ entity.startDate|date('d/m/Y') }}</td>
+                    <td>{{ entity.endDate|date('d/m/Y') }}</td>
+                    <td>
+                        {% if entity.approved == 1 %}
+                            ОДОБРЕН <br/>
+                        {% else %}
+                            Ожидает решения
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if date() < date(entity.startDate) %}
+                            Ждем заезда {{ entity.startDate|date('Y-m-d') }}
+                        {% elseif date() == date(entity.startDate) %}
+                            Заезд сегодня
+                        {% elseif date() >= date(entity.startDate) and date() <= date(entity.endDate) %}
+                            Посетитель уже заселен
+                        {% elseif date() > date(entity.endDate) %}
+                            Посетитель съехал. Запись может быть удалена
+                        {% endif %}
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a class="btn btn-small btn-white" href="{{ path('object_objectbooking_show', { 'id': entity.id }) }}">Детально</a>
+                            </li>
+                            {#<li>#}
+                                {#<a href="{{ path('object_objectbooking_edit', { 'id': entity.id }) }}">edit</a>#}
+                            {#</li>#}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(entities) }}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endblock content %}

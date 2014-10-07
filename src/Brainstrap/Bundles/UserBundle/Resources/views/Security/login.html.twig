@@ -1,0 +1,35 @@
+{% extends "BrainstrapBundlesUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+
+
+    <div class="login-card">
+        <h1>Отель Кремлевский</h1><br>
+        {#<form>#}
+            {#<input type="text" name="user" placeholder="Username">#}
+            {#<input type="password" name="pass" placeholder="Password">#}
+            {#<input type="submit" name="login" class="login login-submit" value="login">#}
+        {#</form>#}
+
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="_password" required="required" />
+
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me">Запомнить</label>
+
+            <input type="submit" id="_submit" name="_submit" value="Войти" />
+        </form>
+    </div>
+
+
+{% endblock fos_user_content %}

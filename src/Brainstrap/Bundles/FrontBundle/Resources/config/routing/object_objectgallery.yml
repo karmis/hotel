@@ -1,0 +1,30 @@
+object_objectgallery:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectGallery:index" }
+
+object_objectgallery_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectGallery:show" }
+
+object_objectgallery_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectGallery:new" }
+
+object_objectgallery_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectGallery:create" }
+    requirements: { _method: post }
+
+object_objectgallery_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectGallery:edit" }
+
+object_objectgallery_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectGallery:update" }
+    requirements: { _method: post|put }
+
+object_objectgallery_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectGallery:delete" }
+    requirements: { _method: post|delete }

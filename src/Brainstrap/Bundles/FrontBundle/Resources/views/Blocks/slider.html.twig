@@ -1,0 +1,95 @@
+{% if gallery is not defined %}
+    {% set gallery = [] %}
+{% endif %}
+
+{% if detail_type is not defined %}
+    {% set detail_type = "show" %}
+{% endif %}
+
+{% if detail_type == "show" %}
+    {% if gallery|length > 0 %}
+
+        <ul id="bxslider-bs-detail" class="bxslider">
+            {% for item in gallery %}
+                <li class="slideshow-photo">
+                    <img src="{{ item.photo.path|apply_filter('gallery_item_in_slider') }}"
+                         alt="{{ item.description }}" class="responsive-image"/>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="bx-pager" class="thumb-room-detail clearfix">
+            {% for key, item in gallery %}
+                <a data-slide-index="{{ key }}" href="#">
+                    <img src="{{ item.photo.path|apply_filter('gallery_item_in_slider_thumb') }}" alt="">
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': "Галлерея не найдена",
+        'body':'Фотографий для этого номера не найдено',
+        'block_type':'attention'
+        } only %}
+    {% endif %}
+{% else %}
+    {% if edit_form is not defined %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': "edit_form not found",
+        'body':'set edit_form in parameters!',
+        'block_type':'error'
+        } only %}
+    {% else %}
+        {% macro collectionItem_gallery(data, entity, key) %}
+            <li class="form-group">
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            {% if entity.gallery[key].photo.path is defined %}
+                                <img src="{{ entity.gallery[key].photo.path|apply_filter('gallery_item_in_list_admin') }}"
+                                     alt=""/>
+                            {% endif %}
+
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                {{ form_widget(data.photo, { 'attr': {'class': 'input-control validate-gallery-photo' }}
+                                ) }}
+                            </div>
+                            <div style="padding: 15px;">
+
+                            </div>
+
+                            <div class="caption">
+                                <p> {{ form_widget(data.caption, { 'attr': {'class': 'input-control validate-caption caption', 'placeholder': 'Заголовок изображения' }}
+                                    ) }}</p>
+                            </div>
+
+                            <div class="caption">
+                                <p> {{ form_widget(data.description, { 'attr': {'class': 'input-control validate-gallerey textarea-small', 'placeholder': 'Описание для изображения' }}
+                                    ) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endmacro %}
+
+
+        <div class="row">
+            <header class="box-heading">
+                <h3 class="headborder-small">
+                    Галлерея
+                </h3>
+            </header>
+            <div class="col_md_3">
+                <ul class="list-unstyled" id="gallery-fields-list"
+                    data-prototype="{{ _self.collectionItem_gallery(edit_form.gallery.vars.prototype)|e }}">
+                    {% for key, gal in edit_form.gallery %}
+                        {{ _self.collectionItem_gallery(gal, entity, key) }}
+                        <div class="clearfix"></div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+

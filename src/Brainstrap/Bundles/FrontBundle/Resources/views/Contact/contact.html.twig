@@ -1,0 +1,59 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+{% set active_item_menu = "contact" %}
+{% set current_page_selector = "room-detail" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+    </script>
+{% endblock javascripts %}
+{% block content %}
+    <div class="md-body md-{{ current_page_selector }} clearfix" style="margin-bottom:35px">
+        <div class="grid_9 md-main">
+            <section class="heading-absolute box-sidebar align-center">
+                <header class="box-heading heading-large">К
+                    <div class="decription-override">
+                        <h2 class="h1">
+                            Контакты
+                        </h2>
+
+                        <p>наши контакты</p>
+                    </div>
+                </header>
+            </section>
+
+            <div class="row">
+
+                <br/>
+                <h3 class="media-header h4">
+                   Как с нами связаться
+                </h3>
+                <div class="preview-content">
+                    <div class="clearfix"></div>
+                    <div class="line"></div>
+                    <p>
+
+                    <div class="clearfix"></div>
+                    <div class="hotel-contact"><h3>Контакты</h3>
+                        <ul class="footer-content">
+                            <li>Город <span class="hotel-number hotel-number-cont">Владимирская область, город Суздаль.</span></li>
+                            <li>Адрес <span class="hotel-number hotel-number-cont">ул.Толстого, д. 5.</span></li>
+                            <li>E-mail <span class="hotel-number hotel-number-cont">trapeza1@mail.ru</span></li>
+                            <li>Бронирование <span class="hotel-number hotel-number-cont">+7 (49231) 2-50-55</span></li>
+                            <li>Почтовый индекс <span class="hotel-number hotel-number-cont">601293</span></li>
+                        </ul>
+                    </div>
+                    <br />
+                    <br />
+                    <script type="text/javascript" charset="utf-8" src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=KiPNb-pMtSyV4WWq4foofWad7FwOcuk1&width=900&height=450"></script>
+                    <div class="clearfix"></div>
+
+                    </p>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{{ form_start(form_filter) }}
+
+{% set classes = "input-control bs-date-datepicker border-"~type|default( "white") %}
+
+<div class="form-group">
+    <label class="label-control">
+        Дата заезда
+    </label>
+
+    <div class="booking-form select-{{type|default( "white")}}">
+        <label class="collapse input">
+            {{ form_widget(form_filter.startDate, {"attr":{"class":classes~" date-startDate" }, 'autocomplete':'false'}) }}
+            {#<input type="text" id="arrival-date" class="input-control border-white">#}
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="label-control">
+        Дата выезда
+    </label>
+
+    <div class="booking-form select-{{type|default( "white")}}">
+        <label class="collapse input">
+            {{ form_widget(form_filter.endDate, {"attr":{"class":classes~" date-endDate",'autocomplete':'false' }}) }}
+        </label>
+    </div>
+</div>
+<div class="form-group last">
+    <label class="label-control"></label>
+    {{ form_widget(form_filter.submit, {"attr":{"class":"btn btn-large btn-darkbrown" }}) }}
+</div>
+{#<div class="form-group last">#}
+    {#<label class="label-control"></label>#}
+    {#<a class="btn btn-small btn-border btn-border-brown" href="{{ path('object_object') }}">Все</a>#}
+{#</div>#}
+
+
+
+{{ form_end(form_filter) }}

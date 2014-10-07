@@ -1,0 +1,24 @@
+object_objectbooking:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:index" }
+
+object_objectbooking_show:
+    path:     /{id}/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:show" }
+    requirements:
+        id:  \d+
+object_objectbooking_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:edit" }
+    requirements:
+        id:  \d+
+
+object_objectbooking_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:update" }
+    requirements: { _method: post|put,  id:  \d+ }
+
+object_objectbooking_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:delete" }
+    requirements: { _method: post|delete,  id:  \d+ }

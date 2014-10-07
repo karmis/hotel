@@ -1,0 +1,50 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_index.html.twig' %}
+{% set active_item_menu = "review" %}
+{% set template_letter = "О" %}
+{% set template_caption= "Отзывы" %}
+{% set template_descr= "отзывы о гостинице " %}
+{% set content_right_caption = "Отзывы о гостинице" %}
+{% set description_length = 450 %}
+{% set detail_type = "show" %}
+{% set prefix_route = "review_review" %}
+{% if is_granted('ROLE_ADMIN') %}
+    {% set show_detail = true %}
+{% else %}
+    {% set show_detail = false %}
+{% endif %}
+{% block flashes %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': "Отзыв успешно добавлен",
+        'body':flashMessage,
+        'block_type':'success'
+        } only %}
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('attention') %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': "Отзыв не добавлен",
+        'body':flashMessage,
+        'block_type':'attention'
+        } only %}
+    {% endfor %}
+{% endblock flashes %}
+
+{% block right_section %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/lines.html.twig' with
+    {
+    'entities': pagination,
+    'prefix_route':prefix_route,
+    'is_paging': true,
+    'detail_type': detail_type,
+    'show_detail': show_detail
+    } only %}
+{% endblock right_section %}
+
+{% block form_filter %}
+    <h2 class="h2">
+        Оставьте свой отзыв о гостинице
+    </h2>
+    <br/>
+    {{ render(controller('BrainstrapBundlesFrontBundle:Review/Review:new')) }}
+{% endblock form_filter %}

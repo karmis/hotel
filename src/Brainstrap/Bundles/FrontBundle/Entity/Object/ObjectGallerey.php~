@@ -1,0 +1,98 @@
+<?php
+
+namespace Brainstrap\Bundles\FrontBundle\Entity\Object;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
+
+/**
+ * ObjectGallery
+ *
+ * @ORM\Table()
+ * @FileStore\Uploadable
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity
+ */
+class ObjectGallery
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @Assert\File(maxSize="20M")
+     * @FileStore\UploadableField(mapping="photo")
+     * @ORM\Column(type="array", nullable=true)
+     **/
+    private $photo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return ObjectGallery
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return ObjectGallery
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+}

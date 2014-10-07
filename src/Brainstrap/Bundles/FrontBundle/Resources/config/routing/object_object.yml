@@ -1,0 +1,9 @@
+object_object:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:index" }
+
+object_object_show:
+    path:     /{id}/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:show" }
+    requirements:
+        id:  \d+

@@ -1,0 +1,22 @@
+{% if detail_type == "show" %}
+    {% if avatar is defined and avatar.path is defined %}
+        <a rel="lightbox" href="{{ avatar.path }}">
+            <img data-original="{{ avatar.path|apply_filter('avatar_in_list') }}" class="media-object responsive-image lazy"/>
+        </a>
+    {% else %}
+        <img src="{{ asset('common/images/404.png') }}" />
+    {% endif %}
+{% else %}
+
+    {% if avatar is defined and avatar.path is defined %}
+        <img src="{{ avatar.path|apply_filter('avatar_in_item_edit') }}" alt=""/>
+    {% else %}
+        <img src="{{ asset('common/images/404.png') }}"/>
+    {% endif %}
+
+    {{ form_widget(edit_form.avatar, { 'attr': {'class': 'input-control validate-avatar', 'placeholder': 'Аватар'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(edit_form.avatar) }}
+    </div>
+
+{% endif %}

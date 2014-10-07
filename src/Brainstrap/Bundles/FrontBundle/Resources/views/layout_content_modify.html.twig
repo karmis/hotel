@@ -1,0 +1,57 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_detail.html.twig' %}
+{#{% if detail_type is not defined %}#}
+    {#{% set detail_type = "create" %}#}
+{#{% endif %}#}
+
+{% if detail_type == "create" %}
+    {% set form_uni = form %}
+{% else %}
+    {% set form_uni = edit_form %}
+{% endif %}
+{% block rows %}
+    {{ form_start(form_uni) }}
+    <div class="row">
+
+        {% block flashes %}{% endblock flashes %}
+
+        <div class="preview-content">
+            {% block preview_content %} {% endblock preview_content %}
+            <div class="clearfix"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="row parameters-room">
+            {% block parameters %}{% endblock parameters %}
+            <div class="clearfix"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="row slide-preview-room">
+            {% block show_slider_block %}{% endblock show_slider_block %}
+            <div class="clearfix"></div>
+            <div class="line"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-control"></label>
+            {{ form_widget(form_uni.submit, { 'attr': {'class': 'btn btn-large btn-darkbrown col-right', 'style': 'float:"right"'} }) }}
+        </div>
+    </div>
+
+    <a href=" {{ path(prefix_route) }}" class="btn btn-large btn-darkbrown" style="float: left;">
+        Список
+    </a>
+    {{ form_end(form_uni) }}
+
+
+    {% if detail_type == "edit" %}
+        {{ form_start(delete_form) }}
+        <div class="row">
+            <div class="form-group">
+                <label class="label-control"></label>
+                {{ form_widget(delete_form.submit, { 'attr': {'class': ' btn-remove btn btn-large btn-darkbrown col-right', 'style': 'float:"right"'} }) }}
+            </div>
+        </div>
+        {{ form_end(delete_form) }}
+    {%  endif %}
+{% endblock rows %}

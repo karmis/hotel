@@ -1,0 +1,30 @@
+object_objectservice:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectService:index" }
+
+object_objectservice_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectService:show" }
+
+object_objectservice_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectService:new" }
+
+object_objectservice_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectService:create" }
+    requirements: { _method: post }
+
+object_objectservice_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectService:edit" }
+
+object_objectservice_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectService:update" }
+    requirements: { _method: post|put }
+
+object_objectservice_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectService:delete" }
+    requirements: { _method: post|delete }

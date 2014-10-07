@@ -1,0 +1,30 @@
+object_objecttarif:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectTarif:index" }
+
+object_objecttarif_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectTarif:show" }
+
+object_objecttarif_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectTarif:new" }
+
+object_objecttarif_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectTarif:create" }
+    requirements: { _method: post }
+
+object_objecttarif_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectTarif:edit" }
+
+object_objecttarif_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectTarif:update" }
+    requirements: { _method: post|put }
+
+object_objecttarif_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectTarif:delete" }
+    requirements: { _method: post|delete }

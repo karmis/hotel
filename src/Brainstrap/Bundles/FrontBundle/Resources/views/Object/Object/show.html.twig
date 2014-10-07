@@ -1,0 +1,287 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_detail.html.twig' %}
+{% set active_item_menu = "object" %}
+{% set template_letter = "Н" %}
+{% set template_caption= "Номера" %}
+{% set template_descr= "список номеров" %}
+{% set content_right_caption = "Список номеров" %}
+{% set slider_enabled = true %}
+{% set detail_type = "show" %}
+{% set prefix_route = "object_object" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" charset="utf-8"
+            src="{{ asset('bower/components/jQuery-Collapse/src/jquery.collapse.js') }}"></script>
+    <script type="text/javascript">
+        $(function ($) {
+            "use strict";
+            $('#bxslider').bxSlider({
+                pagerCustom: '#bx-pager',
+                auto: true,
+                mode: 'fade',
+                speed: 500,
+                controls: true,
+                responsive: true,
+                nextText: '',
+                prevText: '',
+                adaptiveHeight: true,
+                onSliderLoad: function () {
+                    $('.bx-prev').html('<i class="icon icon-previous"></i>');
+                    $('.bx-next').html('<i class="icon icon-next"></i>');
+                   $(window).resize(function(){
+                   	var w0 =$(".md-slide img").width(),
+                   		w1 = $(window).width()/2,
+                   		w2 = w0/2,
+                   		w = w2 - w1;
+                   		$(".bx-viewport").width(w0).css("left",-w);
+                   		console.log(w);
+                   }).trigger('resize');
+                }
+            });
+
+            $("#prices").collapse({
+                query: 'div h2'
+            });
+
+
+        });
+    </script>
+{% endblock javascripts %}
+
+{% block flashes %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': "Бронирование невозможно",
+        'body':'На этот период уже есть подтвержденные заявки',
+        'block_type':'attention'
+        } only %}
+    {% endfor %}
+{% endblock flashes %}
+
+{% block show_slider_block %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/slider.html.twig' with
+    {
+    'gallery': entity.gallery,
+    } only %}
+{% endblock show_slider_block %}
+
+{% block parameters %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/parameters.html.twig' with
+    {
+    'parameters': entity.parameters,
+    'allow_add': false,
+    'allow_edit':false
+    } only %}
+{% endblock parameters %}
+
+{% block left_section %}
+    {% if entity.additions|length > 0 %}
+        <div class="line"></div>
+        <section class="box-sidebar"><h2 class="h3 header-sidebar">Услуги в номере</h2>
+            <ul class="list list-check">
+
+                {% for addition in entity.additions %}
+                    <li>{{ addition.caption }}</li>
+                {% endfor %}
+
+            </ul>
+        </section>
+    {% endif %}
+
+    {% if entity.services|length > 0 %}
+        <div class="line"></div>
+        <section class="box-sidebar"><h2 class="h3 header-sidebar">Дополнительно можно заказать</h2>
+            <ul class="list list-check">
+
+                {% for service in entity.services %}
+                    <li>{{ service.caption }}</li>
+                {% endfor %}
+
+            </ul>
+        </section>
+    {% endif %}
+
+    {% if booked|length > 0 %}
+        <div class="line"></div>
+
+        <section class="box-sidebar"><h2 class="h3 header-sidebar">Бронированные даты</h2>
+            <ul class="list list-check">
+
+                {% for book in booked %}
+                    <li> с {{ book.startDate|date('d/m/Y') }} по {{ book.endDate|date('d/m/Y') }} </li>
+                {% endfor %}
+
+            </ul>
+        </section>
+    {% endif %}
+
+
+    <section class="box-sidebar">
+
+        <div class="line"></div>
+        <div class="box-quote">
+            <p>
+                Во время Государственных и Суздальских праздников могут быть организованы праздничные программы и
+                заезды турами цены на которые необходимо уточнять.
+            </p>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block preview_content %}
+
+    {#Desctiption#}
+    <p>
+        {{ entity.description|raw }}
+    </p>
+    {#endDescription#}
+
+
+    {#Prices#}
+    <section class="md-booking">
+        <h3 class="h3">
+            {{ entity.caption }} от
+                <span class="number number-big">
+                    {#TODO Сделать по людски. Возможно придется подстраивать под календарь праздников#}
+                    {% if entity.tariffWeekly|length %}
+                        {{ entity.tariffWeekly.getMinPriceForThisTariffGroup }}
+                    {% else %}
+                        Не указана
+                    {% endif %}
+
+                </span>
+
+               <span class="one-night">
+                 рублей  / сутки
+               </span>
+        </h3>
+        <br/>
+    </section>
+    <div class="row row-booking clearfix">
+        <div id="prices" data-collapse>
+            <h2 class="">
+                Показать все цены
+            </h2>
+
+            <div>
+
+                <div class="box-heading">
+                    <div class="head headborder" style="padding-bottom: 5px;">
+                        <div class="media">
+                            {#<h4>Все цены для этого номера</h4>#}
+                        </div>
+                        <div class="col-info-room">
+                            <h5>Тариф</h5>
+                        </div>
+                        <div class="col-number-price">
+                            <h5>Цена</h5>
+                        </div>
+                        <div class="col-number-price">
+                            <h5>Поздний выезд</h5>
+                        </div>
+                        <div class="col-info-price">
+                            <h5>Почасовая</h5>
+                        </div>
+                    </div>
+                </div>
+
+                {% if entity.tariffWeekly|length %}
+                    {% set currentLoop = null %}
+                    {% for key,tariff in entity.tariffWeekly.tariffs if tariff.type.id is defined and currentLoop != tariff.type.id %}
+                        {% set currentLoop = tariff.type.id %}
+
+                        <div class="row-room clearfix">
+                            <div class="col-info-room">
+                                <h4 class="h4">
+                                    {{ tariff.type.caption|default('Не указано') }}
+                                </h4>
+                                <span class="amount-night">
+                                   {{ tariff.description|default('Нет описания для тарифа') }}
+                                </span>
+                                <br/>
+                                <span class="day-arrival">
+                                    {% if entity.tariffWeekly.tariffs|length > 0 %}
+                                        {% for tariffItem in entity.tariffWeekly.tariffs %}
+                                            {% if tariffItem.type.id == currentLoop %}
+                                                {{ tariffItem.countPeople|default('Не указано') }} человек - {{ tariffItem.price|default('Не указано') }} руб.
+                                                <br/>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="col-number-price">
+                                <span class="number">
+                                    от {{ tariff.price|default('Не указано') }} р.
+                                    <span class="one-night">
+                                        / сутки
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="col-number-price">
+                                <span class="number">
+                                    {% if entity.tariffLate.tariffs|length > 0 %}
+                                        {% for tariffItem in entity.tariffLate.tariffs %}
+                                            {% if tariffItem.type.id == currentLoop %}
+                                                {{ tariffItem.price|default('Не указано') }} р. <br/>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </span>
+                                <span class="amount-night" style="padding-top: 0px;">
+                                   c 12:00 до 18:00
+                                </span>
+                            </div>
+                            <div class="col-number-total">
+                                {% if entity.tariffHourly.tariffs|length > 0 %}
+                                    {% set priceFirstHourly = null %}
+                                    {% set priceNextHourly = null %}
+
+                                    {% for tariffItem in entity.tariffHourly.tariffs %}
+                                        {% if tariffItem.type.id == currentLoop %}
+                                            {% set priceFirstHourly = tariffItem.priceFirstHourly %}
+                                            {% set priceNextHourly = tariffItem.priceNextHourly %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <span class="number">
+                                        {{ priceFirstHourly|default('Не указано') }} р.
+                                        <br/>
+                                        <span class="one-night">
+                                            первый час
+                                        </span>
+                                    </span>
+                                    <span class="day-arrival" style="padding-top: 0px;">
+                                            {% if priceNextHourl is not defined %}
+                                                далее часы не указаны
+                                            {% else %}
+                                                далее по <br/> {{ priceNextHourl }} р.
+                                            {% endif %}
+
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                    {% endfor %}
+                {% else %}
+                    {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+                    'label': "Не указано",
+                    'body':'Нет детальной информации по ценам',
+                    'block_type':'attention'
+                    } only %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {#endPrices#}
+
+    {#Form#}
+    <section>
+        <div class="box-booking booking-inline">
+            {{ render(controller('BrainstrapBundlesFrontBundle:Object/ObjectBooking:new', {'type':'client', 'entityId':entity.id})) }}
+        </div>
+    </section>
+    {#endForm#}
+
+{% endblock preview_content %}

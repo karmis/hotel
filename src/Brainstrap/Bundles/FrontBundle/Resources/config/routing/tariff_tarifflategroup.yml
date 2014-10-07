@@ -1,0 +1,30 @@
+tariff_tarifflategroup:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLateGroup:index" }
+
+tariff_tarifflategroup_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLateGroup:show" }
+
+tariff_tarifflategroup_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLateGroup:new" }
+
+tariff_tarifflategroup_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLateGroup:create" }
+    requirements: { _method: post }
+
+tariff_tarifflategroup_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLateGroup:edit" }
+
+tariff_tarifflategroup_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLateGroup:update" }
+    requirements: { _method: post|put }
+
+tariff_tarifflategroup_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLateGroup:delete" }
+    requirements: { _method: post|delete }

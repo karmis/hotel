@@ -1,0 +1,32 @@
+slider_slide:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Slider\Slide:index" }
+
+slider_slide_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Slider\Slide:show" }
+    requirements: { id:  \d+ }
+
+slider_slide_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Slider\Slide:new" }
+
+slider_slide_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Slider\Slide:create" }
+    requirements: { _method: post }
+
+slider_slide_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Slider\Slide:edit" }
+    requirements: { id:  \d+ }
+
+slider_slide_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Slider\Slide:update" }
+    requirements: { _method: post|put }
+
+slider_slide_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Slider\Slide:delete" }
+    requirements: { _method: post|delete }

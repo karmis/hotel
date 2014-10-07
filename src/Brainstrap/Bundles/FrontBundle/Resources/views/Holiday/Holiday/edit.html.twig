@@ -1,0 +1,50 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_modify.html.twig' %}
+{% set active_item_menu = "holiday" %}
+{% set template_letter = "С" %}
+{% set template_caption= "Редактирвоания события администратором" %}
+{% set template_descr= entity.caption %}
+{% set content_right_caption = entity.caption %}
+{% set slider_enabled = true %}
+{% set detail_type = "edit" %}
+{% set prefix_route = "holiday_holiday" %}
+
+
+{% block preview_content %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/avatar.html.twig' with {
+    'avatar':entity.avatar,
+    'detail_type': "edit",
+    'edit_form':edit_form,
+    } only %}
+{% endblock preview_content %}
+
+
+{% block show_slider_block %}
+
+    <div class="form-group">
+        <label class="label-control">
+            Название<span class="start">*</span>
+        </label>
+        {{ form_widget(edit_form.caption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Название'} }) }}
+        <div class="inputErrors bs-alert bs-alert-error">
+            {{ form_errors(edit_form.caption) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="label-control">
+            Описание
+        </label>
+        {{ form_widget(edit_form.description, { 'attr': {'class': 'input-control validate-description tinymce', 'placeholder': 'Подробное описание'} }) }}
+        <div class="inputErrors bs-alert bs-alert-error">
+            {{ form_errors(edit_form.description) }}
+        </div>
+    </div>
+
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/slider.html.twig' with
+    {
+    'gallery': entity.gallery,
+    'detail_type': "edit",
+    'edit_form':edit_form,
+    'entity':entity
+    } only %}
+{% endblock show_slider_block %}

@@ -1,0 +1,30 @@
+object_objectparameter:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectParameter:index" }
+
+object_objectparameter_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectParameter:show" }
+
+object_objectparameter_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectParameter:new" }
+
+object_objectparameter_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectParameter:create" }
+    requirements: { _method: post }
+
+object_objectparameter_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectParameter:edit" }
+
+object_objectparameter_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectParameter:update" }
+    requirements: { _method: post|put }
+
+object_objectparameter_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectParameter:delete" }
+    requirements: { _method: post|delete }

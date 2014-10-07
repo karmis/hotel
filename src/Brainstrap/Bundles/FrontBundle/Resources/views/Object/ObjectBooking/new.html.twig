@@ -1,0 +1,100 @@
+{#{% if entityId is defined %}#}
+
+    {{ form_start(form) }}
+<div class="form-group" style="width: 100%">
+    <label class="label-control">
+        Ваше имя<span class="start">*</span>
+    </label>
+    {{ form_widget(form.name, { 'attr': {'class': 'input-control validate-name', 'placeholder': 'Ваше имя'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.name) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 100%">
+    <label class="label-control">
+        Ваша фамилия<span class="start">*</span>
+    </label>
+    {{ form_widget(form.sname, { 'attr': {'class': 'input-control validate-name', 'placeholder': 'Ваша фамилия'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.name) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 100%">
+    <label class="label-control">
+        Ваш телефон<span class="start">*</span>
+    </label>
+    {{ form_widget(form.phone, { 'attr': {'class': 'input-control validate-phone', 'placeholder': 'Контактный телефон'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.phone) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 100%">
+    <label class="label-control">
+        Ваш email<span class="start">*</span>
+    </label>
+    {{ form_widget(form.email, { 'attr': {'class': 'input-control validate-email', 'placeholder': 'Контактный email'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.email) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 45%;margin-right: 0px;float: left;">
+    <label class="label-control">
+        Взрослых
+    </label>
+    {{ form_widget(form.countAdult, { 'attr': {'class': 'input-control validate-countAdult', 'placeholder': 'Колличество взрослых'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.countAdult) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 45%;float: right; margin-right: 0px;">
+    <label class="label-control">
+        Детей
+    </label>
+    {{ form_widget(form.countChild, { 'attr': {'class': 'input-control validate-name', 'placeholder': 'Колличество детей'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.countChild) }}
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group" style="width: 50%;float: left;padding-right: 10px;margin-right: 0px">
+    <label class="label-control">
+        Дата заезда
+    </label>
+
+    <div class="booking-form select-black" style="max-width: 100%;">
+        <label class="collapse input">
+            {{ form_widget(form.startDate, {"attr":{"class":"input-control bs-date-datepicker date-startDate" }, 'autocomplete':'false'}) }}
+            {#<input type="text" id="arrival-date" class="input-control border-white">#}
+        </label>
+    </div>
+</div>
+<div class="form-group" style="width: 50%;float: right;margin-right: 0px">
+    <label class="label-control">
+        Дата выезда
+    </label>
+
+    <div class="booking-form select-black" style="max-width: 100%;">
+        <label class="collapse input">
+            {{ form_widget(form.endDate, {"attr":{"class":"input-control bs-date-datepicker date-endDate",'autocomplete':'false' }}
+            ) }}
+        </label>
+    </div>
+</div>
+
+{{ form_widget(form.submit, { 'attr': {'class': 'btn btn-large btn-black', 'style':'width:100%'} }) }}
+    {#{{ form_widget(form.entityId, { 'value' : entityId}) }}#}
+    {{ form_end(form) }}
+{#{% else %}#}
+    {#{% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {#}
+    {#'label': "ERROR",#}
+    {#'body':'Entity id not found',#}
+    {#'block_type':'error'#}
+    {#} only %}#}
+{#{% endif %}#}

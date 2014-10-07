@@ -1,0 +1,30 @@
+tariff_tarifflate:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLate:index" }
+
+tariff_tarifflate_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLate:show" }
+
+tariff_tarifflate_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLate:new" }
+
+tariff_tarifflate_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLate:create" }
+    requirements: { _method: post }
+
+tariff_tarifflate_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLate:edit" }
+
+tariff_tarifflate_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLate:update" }
+    requirements: { _method: post|put }
+
+tariff_tarifflate_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffLate:delete" }
+    requirements: { _method: post|delete }

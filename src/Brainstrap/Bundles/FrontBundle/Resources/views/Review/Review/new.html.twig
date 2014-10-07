@@ -1,0 +1,47 @@
+{{ form_start(form, {'attr':{'class':'bordered'}}) }}
+
+<div class="form-group" style="width: 100%">
+    <label class="label-control">
+       Заголовок<span class="start">*</span>
+    </label>
+    {{ form_widget(form.caption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Заголовок'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.caption) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 100%">
+    <label class="label-control">
+        Комментарий<span class="start">*</span>
+    </label>
+    {{ form_widget(form.description, { 'attr': {'class': 'input-control validate-comment', 'placeholder': 'Комментарий', 'style':'height:150px !important;'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.description) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 100%">
+    <label class="label-control">
+        Аватар
+    </label>
+    {{ form_widget(form.avatar, { 'attr': {'class': 'input-control validate-avatar', 'placeholder': 'Аватар'} }) }}
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(form.avatar) }}
+    </div>
+</div>
+
+<div class="form-group" style="width: 100%;margin-bottom: 0px;">
+    <label class="label-control">
+        {{ form_label(form.captcha) }}
+    </label>
+    {{ form_widget(form.captcha, { 'attr': {'class': 'input-control'} }) }}
+</div>
+
+
+
+<div class="form-group" style="width: 100%;margin-bottom: 0px;">
+    <label class=""></label>
+    {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-large btn-darkbrown', 'style':'float:right'} }) }}
+</div>
+
+{{ form_end(form) }}

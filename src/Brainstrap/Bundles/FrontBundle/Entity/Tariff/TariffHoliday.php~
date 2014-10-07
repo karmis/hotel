@@ -1,0 +1,65 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: karmis
+ * Date: 03.09.14
+ * Time: 3:21
+ */
+
+
+namespace Brainstrap\Bundles\FrontBundle\Entity\Tariff;
+
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * TariffHoliday
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class TariffHoliday extends TariffBase
+{
+    /**
+     * @ORM\OneToMany(targetEntity="\Brainstrap\Bundles\FrontBundle\Entity\Object\Object", mappedBy="type")
+     */
+    private $objects;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->objects = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add objects
+     *
+     * @param \Brainstrap\Bundles\FrontBundle\Entity\Object\Object $objects
+     * @return TariffHoliday
+     */
+    public function addObject(\Brainstrap\Bundles\FrontBundle\Entity\Object\Object $objects)
+    {
+        $this->objects[] = $objects;
+
+        return $this;
+    }
+
+    /**
+     * Remove objects
+     *
+     * @param \Brainstrap\Bundles\FrontBundle\Entity\Object\Object $objects
+     */
+    public function removeObject(\Brainstrap\Bundles\FrontBundle\Entity\Object\Object $objects)
+    {
+        $this->objects->removeElement($objects);
+    }
+
+    /**
+     * Get objects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getObjects()
+    {
+        return $this->objects;
+    }
+}

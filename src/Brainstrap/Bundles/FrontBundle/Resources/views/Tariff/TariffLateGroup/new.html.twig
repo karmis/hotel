@@ -1,0 +1,22 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_modify.html.twig' %}
+{% set active_item_menu = "tariff_tarifflategroup" %}
+{% set template_letter = "Т" %}
+{% set template_descr= "группы поздних тарифов" %}
+{% set template_descr= "группы почасовых тарифов" %}
+{% set prefix_route = "tariff_tarifflategroup" %}
+{% set content_right_caption = entity.caption %}
+{% set slider_enabled = false %}
+{% set detail_type = "create" %}
+
+{% block preview_content %}
+    <div class="form-group">
+        <label class="label-control">
+            Заголовок<span class="start">*</span>
+        </label>
+        {{ form_widget(form.caption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Заголовок'} }) }}
+        <div class="inputErrors bs-alert bs-alert-error">
+            {{ form_errors(form.caption) }}
+        </div>
+    </div>
+{% endblock preview_content %}
+

@@ -1,0 +1,24 @@
+object_object_new:
+    path:     /new/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:new" }
+
+object_object_create:
+    path:     /create/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:create" }
+    requirements: { _method: post }
+
+object_object_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:edit" }
+    requirements:
+        id:  \d+
+
+object_object_update:
+    path:     /{id}/update/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:update" }
+    requirements: { _method: post|put,  id:  \d+ }
+
+object_object_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:delete" }
+    requirements: { _method: post|delete,  id:  \d+ }

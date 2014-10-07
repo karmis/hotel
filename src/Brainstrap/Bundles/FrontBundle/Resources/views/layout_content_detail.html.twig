@@ -1,0 +1,122 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+
+{#{% set detail_type = "show" %}#}
+{% block javascripts %}
+    {{ parent() }}
+    {% if slider_enabled == true %}
+        <script type="text/javascript">
+            $(function ($) {
+                "use strict";
+                var bxslider = $('#bxslider-bs-detail');
+                if (bxslider.length > 0) {
+                    bxslider.bxSlider({
+                        pagerCustom: '#bx-pager',
+                        auto: true,
+                        mode: 'fade',
+                        speed: 500,
+                        controls: true,
+                        responsive: true,
+                        nextText: '',
+                        prevText: '',
+                        adaptiveHeight: true,
+                        onSliderLoad: function () {
+                            $('.bx-prev').html('<i class="icon icon-previous"></i>');
+                            $('.bx-next').html('<i class="icon icon-next"></i>');
+//                   $(window).resize(function(){
+//                   	var w0 =$(".md-slide img").width(),
+//                   		w1 = $(window).width()/2,
+//                   		w2 = w0/2,
+//                   		w = w2 - w1;
+//                   		$(".bx-viewport").width(w0).css("left",-w);
+//                   		console.log(w);
+//                   }).trigger('resize');
+                        }
+                    });
+                }
+            });
+        </script>
+    {% endif %}
+
+    {% if detail_type == "edit" or detail_type == "create" %}
+        <script type="text/javascript">
+            $(function () {
+                BS.Forms.Collection.init(['#parameters-fields-list', '#gallery-fields-list']);
+            });
+        </script>
+    {% endif %}
+
+{% endblock javascripts %}
+{% block content %}
+    <div class="md-body md-room-detail clearfix">
+        <div class="grid_9 md-main">
+            {% if detail_type == "show" %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path(prefix_route~"_edit", {id:entity.id}) }}" class="btn btn-small btn-black">
+                        Редактировать
+                    </a>
+                {% endif %}
+
+            {% endif %}
+            <section class="heading-absolute box-sidebar align-center">
+                <header class="box-heading heading-large">
+                    {{ template_letter|default('') }}
+                    <div class="decription-override" style="margin-top: -38px;">
+                        <h2 class="h1" style="font-size: 23px;">
+                            {{ template_caption|default('') }}
+                        </h2>
+
+                        <p>
+                            {{ template_descr|default('') }}
+                        </p>
+                    </div>
+                </header>
+            </section>
+
+            {% block rows %}
+                <div class="row">
+
+                    {% block flashes %}{% endblock flashes %}
+
+
+                    <div class="row slide-preview-room">
+                        {% block show_slider_block %}{% endblock show_slider_block %}
+                        {#<div class="clearfix"></div>#}
+                        {#<div class="line"></div>#}
+                    </div>
+                    <br/>
+
+                    <div class="row parameters-room">
+                        {% block parameters %}{% endblock parameters %}
+                        <div class="clearfix"></div>
+                        <div class="line"></div>
+                    </div>
+                    <br/>
+
+                    <div class="preview-content">
+                        {% block preview_content %}{% endblock preview_content %}
+                        <div class="clearfix"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            {% endblock rows %}
+        </div>
+
+
+        <aside class="grid_3 md-sidebar md-sidebar-pt">
+            {% block left_section %}
+                {#<div class="line"></div>#}
+                {#<section class="box-sidebar"><h2 class="h3 header-sidebar">Услуги в номере</h2>#}
+                {#<ul class="list list-check">#}
+
+                {#{% for addition in entity.additions %}#}
+                {#<li>{{ addition.caption }}</li>#}
+                {#{% endfor %}#}
+
+                {#</ul>#}
+                {#</section>#}
+            {% endblock %}
+
+
+        </aside>
+    </div>
+{% endblock content %}

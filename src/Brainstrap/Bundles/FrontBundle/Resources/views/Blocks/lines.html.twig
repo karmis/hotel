@@ -1,0 +1,79 @@
+{% if entities is not defined %}
+    {% set entities = [] %}
+{% endif %}
+
+{% block list %}
+    {% if entities|length > 0 %}
+        {% if is_paging == true %}
+            <div class="navigation">
+                {{ knp_pagination_render(entities) }}
+            </div>
+        {% endif %}
+        {% for entity in entities %}
+
+            <div class="row-room clearfix">
+                <div class="col-info-room" style="width: 24%">
+                    {% if entity.avatar is defined and entity.avatar.path is defined %}
+                        <img src="{{ entity.avatar.path|apply_filter('avatar_in_list_small') }}"
+                             class="media-object responsive-image" alt="{{ entity.caption }}"
+                             style="padding: 15px;"/>
+                    {% else %}
+                        <img src="{{ asset('common/images/404.png')|apply_filter('avatar_in_list_small') }}"
+                             alt="{{ entity.caption }}"
+                             style="padding: 15px;"/>
+                    {% endif %}
+                </div>
+                <div class="">
+                    <div class="number">
+                        <section class="">
+                            {% if show_detail == true %}
+                                <h3 class="media-header h4">
+                                    <a href="{{ path(prefix_route~'_show', {id:entity.id}) }}">
+                                        {{ entity.caption }}
+                                    </a>
+                                </h3>
+                                {{ entity.description|raw }}
+                                <a class="btn btn-small btn-border btn-border-brown"
+                                   style="float: right"
+                                   href="{{ path(prefix_route~'_show', {id:entity.id}) }}">
+                                    Подробнее...
+                                </a>
+                            {% else %}
+                                <h3 class="media-header h4" style="color: #111111;margin-top: 14px;">
+                                    {#<a href="{{ ref }}">#}
+                                    {{ entity.caption }}
+                                    {#</a>#}
+                                </h3>
+                                {{ entity.description|raw }}
+                                {#<a class="btn btn-small btn-border btn-border-brown"#}
+                                {#style="float: right"#}
+                                {#href="{{ref }}">#}
+                                {#Подробнее...#}
+                                {#</a>#}
+                            {% endif %}
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+        {% endfor %}
+
+        {% if is_paging == true %}
+            <div class="navigation">
+                {{ knp_pagination_render(entities) }}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="row">
+            <div class="grid_12">
+                {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+                'label': "Ничего не найено",
+                'body':'Записей для этого раздела ненайдено',
+                'block_type':'attention'
+                } only %}
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock list %}

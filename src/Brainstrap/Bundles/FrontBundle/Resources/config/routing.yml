@@ -1,0 +1,110 @@
+brainstrap_bundles_front_homepage:
+    path: /
+    defaults: { _controller: BrainstrapBundlesFrontBundle:Default:index }
+
+brainstrap_bundles_front_feedback:
+    path: /связаться
+    defaults: { _controller: BrainstrapBundlesFrontBundle:Default:feedback }
+
+brainstrap_bundles_front_gallery:
+    path: /галерея/
+    defaults: { _controller: BrainstrapBundlesFrontBundle:Gallery\Gallery:index }
+
+#brainstrap_bundles_front_feedback_send:
+#    path: /связаться/отправка
+#    defaults: { _controller: BrainstrapBundlesFrontBundle:Default:feedback }
+#    requirements: { _method: post }
+
+BrainstrapBundlesFrontBundle_object_object:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_object.yml"
+    prefix:   /номера
+    requirements: { _method: get }
+
+object_object_filter_allowed:
+    path:     /номера/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\Object:filter" }
+    requirements: { _method: post }
+
+BrainstrapBundlesFrontBundle_object_object_admin:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_object_admin.yml"
+    prefix:   /admin/номера
+
+BrainstrapBundlesFrontBundle_object_objectberth:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_objectberth.yml"
+    prefix:   /admin/номера/места
+
+BrainstrapBundlesFrontBundle_object_objecttype:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_objecttype.yml"
+    prefix:   /admin/номера/типы
+
+#BrainstrapBundlesFrontBundle_object_objectGallery:
+#    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_objectgallery.yml"
+#    prefix:   /admin/номера/галлерея
+
+BrainstrapBundlesFrontBundle_object_objectservice:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_objectservice.yml"
+    prefix:   /admin/номера/услуги
+
+BrainstrapBundlesFrontBundle_object_objectaddition:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_objectaddition.yml"
+    prefix:   /admin/номера/дополнения
+
+BrainstrapBundlesFrontBundle_holiday_holiday:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/holiday_holiday.yml"
+    prefix:   /праздники
+
+BrainstrapBundlesFrontBundle_holiday_holiday_admin:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/holiday_holiday_admin.yml"
+    prefix:   /admin/праздники
+
+BrainstrapBundlesFrontBundle_tariff_tariff:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/tariff_tariff.yml"
+    prefix:   /admin/тарифы
+
+BrainstrapBundlesFrontBundle_tariff_tariffgroup:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/tariff_tariffgroup.yml"
+    prefix:   /admin/тарифы/группы
+
+BrainstrapBundlesFrontBundle_tariff_tarifftype:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/tariff_tarifftype.yml"
+    prefix:   /admin/тарифы/типы
+
+BrainstrapBundlesFrontBundle_tariff_tarifflate:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/tariff_tarifflate.yml"
+    prefix:   /admin/тарифы/поздние
+
+BrainstrapBundlesFrontBundle_tariff_tariffhourly:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/tariff_tariffhourly.yml"
+    prefix:   /admin/тарифы/почасовые
+
+BrainstrapBundlesFrontBundle_tariff_tarifflategroup:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/tariff_tarifflategroup.yml"
+    prefix:   /admin/тарифы/поздние/группы
+
+BrainstrapBundlesFrontBundle_tariff_tariffhourlygroup:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/tariff_tariffhourlygroup.yml"
+    prefix:   /admin/тарифы/почасовые/группы
+
+BrainstrapBundlesFrontBundle_object_objectbooking:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_objectbooking.yml"
+    prefix:   /бронирование
+
+BrainstrapBundlesFrontBundle_object_objectbooking_admin:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/object_objectbooking_admin.yml"
+    prefix:   /admin/бронирование
+
+BrainstrapBundlesFrontBundle_slider_slide_admin:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/slider_slide_admin.yml"
+    prefix:   /admin/слайды
+
+BrainstrapBundlesFrontBundle_review_review:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/review_review.yml"
+    prefix:   /отзывы
+
+BrainstrapBundlesFrontBundle_review_review_admin:
+    resource: "@BrainstrapBundlesFrontBundle/Resources/config/routing/review_review_admin.yml"
+    prefix:   /admin/отзывы
+
+contact_contact:
+    path:     /контакты/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Contact\Contact:index" }

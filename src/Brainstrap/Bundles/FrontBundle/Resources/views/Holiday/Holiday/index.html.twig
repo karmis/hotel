@@ -1,0 +1,22 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_index.html.twig' %}
+{% set active_item_menu = "holiday" %}
+{% set template_letter = "С" %}
+{% set template_caption= "События" %}
+{% set template_descr= "список событий" %}
+{% set content_right_caption = "Список событий" %}
+{% set prefix_route = "holiday_holiday" %}
+{% set description_length = 250 %}
+{% set detail_type = "show" %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block right_section %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/list.html.twig' with
+    {
+    'entities': entities,
+    'prefix_route':'holiday_holiday',
+    'detail_type':detail_type
+    } only %}
+{% endblock right_section %}

@@ -1,0 +1,30 @@
+object_objectberth:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBerth:index" }
+
+object_objectberth_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBerth:show" }
+
+object_objectberth_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBerth:new" }
+
+object_objectberth_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBerth:create" }
+    requirements: { _method: post }
+
+object_objectberth_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBerth:edit" }
+
+object_objectberth_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBerth:update" }
+    requirements: { _method: post|put }
+
+object_objectberth_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBerth:delete" }
+    requirements: { _method: post|delete }

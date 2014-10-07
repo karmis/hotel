@@ -1,0 +1,23 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_index.html.twig' %}
+{% set active_item_menu = "object" %}
+{% set template_letter = "У" %}
+{% set template_caption= "Редактирование" %}
+{% set template_descr= "услуги" %}
+{% set prefix_route = "object_objectservice" %}
+{% set description_length = 250 %}
+{% set detail_type = "show" %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block right_section %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/parameters.html.twig' with
+    {
+    'parameters': entities,
+    'prefix_route':prefix_route,
+    'detail_type':detail_type,
+    'has_value': false,
+    'allow_add': true
+    } only %}
+{% endblock right_section %}

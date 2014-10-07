@@ -1,0 +1,76 @@
+{% if entities is not defined %}
+    {% set entities = [] %}
+{% endif %}
+{% block list %}
+
+    {% set open_row_tag = " <div class='row'>" %}
+    {% set close_row_tag = "</div>" %}
+
+<div class="md-accomodation">
+
+    {% if entities|length > 0 %}
+        {% set columnFlag = 0 %}
+
+
+        {% for entity in entities %}
+            {% if columnFlag >= 3 or columnFlag == 0 %}
+                {{ open_row_tag|raw }}
+            {% endif %}
+            <div class="grid_4" style="margin-bottom: 12px;display:inline-block;">
+                <article class="media">
+                    <figure>
+                        {% include 'BrainstrapBundlesFrontBundle::Blocks/avatar.html.twig' with {
+                            'avatar':entity.avatar,
+                            'detail_type':detail_type
+                        } only %}
+                    </figure>
+                    <section class="media-body">
+                        <h3 class="media-header h4">
+                            <a href="{{ path(prefix_route~'_show', {id:entity.id}) }}">
+                                {{ entity.caption }}
+                            </a>
+                        </h3>
+
+                        <p class="media-content">
+                            {{ entity.description|striptags|truncate(description_length|default(350)) }}
+                        </p>
+                        <a class="btn btn-small btn-border btn-border-brown"
+                           href="{{ path(prefix_route~'_show', {id:entity.id}) }}">
+                            Подробнее...
+                        </a>
+                    </section>
+                    <div class="clearfix"></div>
+                </article>
+            </div>
+
+            {% set columnFlag = columnFlag + 1 %}
+            {% if columnFlag >= 3 or columnFlag == 0 %}
+                {{ close_row_tag|raw }}
+                <div class="clearfix"></div>
+                {% set columnFlag = 0 %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="row">
+            <div class="grid_12">
+                {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+                'label': "Ничего не найено",
+                'body':'Записей для этого раздела ненайдено',
+                'block_type':'attention'
+                } only %}
+            </div>
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path(prefix_route~"_new") }}" class="btn btn-small btn-black">
+            Добавить
+        </a>
+    {% endif %}
+
+{% endblock list %}

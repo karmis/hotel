@@ -1,0 +1,27 @@
+
+holiday_holiday_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Holiday\Holiday:new" }
+
+holiday_holiday_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Holiday\Holiday:create" }
+    requirements: { _method: post }
+
+holiday_holiday_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Holiday\Holiday:edit" }
+    requirements:
+        id:  \d+
+
+holiday_holiday_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Holiday\Holiday:update" }
+    requirements:
+        _method: post|put
+        id:  \d+
+
+holiday_holiday_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Holiday\Holiday:delete" }
+    requirements: { _method: post|delete, id:  \d+ }

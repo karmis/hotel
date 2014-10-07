@@ -1,0 +1,87 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+{% set active_item_menu = "gallery" %}
+{% set current_page_selector = "accomodation" %}
+{% block javascripts %}
+    {{ parent() }}
+    {#<script type="text/javascript" src="{{ asset('bower/components/mixitup/src/jquery.mixitup.js') }}"></script>#}
+    <script type="text/javascript">
+        $(function () {
+
+
+        });
+    </script>
+{% endblock javascripts %}
+{% block content %}
+    <div class="md-body md-{{ current_page_selector }}">
+        <section class="row md-accomodation-available clearfix">
+            <div class="grid_3 align-center">
+                <header class="box-heading heading-large">Н
+                    <div class="decription-override" style="margin-top: -35px;"><h1 class="h1">Номера</h1>
+
+                        <p>бронирование</p>
+                    </div>
+                </header>
+            </div>
+            <div class="grid_9">
+                <section class="md-booking">
+                    <h2 class="title-checkroom">
+                        Слайды
+                    </h2>
+
+                    <div class="box-booking booking-inline">
+                        <div class="form-group last">
+                            <label class="label-control"></label>
+                            <a href="{{ path('slider_slide_new') }}" class="btn btn-large btn-border btn-border-brown">
+                                Создать
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="md-accomodation-content">
+            <div class="row clearfix">
+                {% if entities|length > 0 %}
+                    {% set columnFlag = 0 %}
+                    {% for entity in entities %}
+                        {% if columnFlag >= 3 %}
+                            <div class="row">
+                        {% endif %}
+                        <div class="grid_4">
+                            <article class="media">
+                                <figure>
+                                    {% if entity.photo is defined and entity.photo.path is defined %}
+                                        <img src="{{ entity.photo.path|apply_filter('avatar_in_list') }}"
+                                             class="media-object responsive-image" alt="{{ entity.caption }}"/>
+                                    {% else %}
+                                        <img src="{{ asset('common/images/404.png') }}" alt="{{ entity.caption }}"/>
+                                    {% endif %}
+                                </figure>
+                                <section class="media-body">
+                                    <h3 class="media-header h4">
+                                        <a href="{{ path('slider_slide_show', {id:entity.id}) }}">{{ entity.caption }}</a>
+                                    </h3>
+
+                                    <p class="media-content">
+                                        {{ entity.description|striptags|truncate(250) }}
+                                    </p>
+                                    <a class="btn btn-small btn-border btn-border-brown"
+                                       href="{{ path('slider_slide_edit', {id:entity.id}) }}">
+                                        Редактировать...
+                                    </a>
+                                </section>
+                            </article>
+                        </div>
+                        {% set columnFlag = columnFlag + 1 %}
+                        {% if columnFlag >= 3 %}
+                        </div>
+                            {% set columnFlag = 0 %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+        <div class="clearfix" style="padding-bottom: 25px;"></div>
+    </div>
+{% endblock content %}

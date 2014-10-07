@@ -1,0 +1,56 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+{% set active_item_menu = "object" %}
+{% set current_page_selector = "room-detail" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+    </script>
+{% endblock javascripts %}
+{% block content %}
+    <div class="md-body md-{{ current_page_selector }} clearfix">
+        <div class="grid_9 md-main">
+            <section class="heading-absolute box-sidebar align-center">
+                <header class="box-heading heading-large">Ф
+                    <div class="decription-override"><h2 class="h1">{{ entity.caption }}</h2>
+
+                        <p>описание к фотографии</p>
+                    </div>
+                </header>
+            </section>
+
+            <div class="row">
+                <div class="row slide-preview-room">
+                    {% if entity.photo is defined and entity.photo.path is defined %}
+                        <img src="{{ entity.photo.path|apply_filter('avatar_in_item_edit') }}" alt=""/>
+                    {% else %}
+                        <img src="{{ asset('common/images/404.png') }}"/>
+                    {% endif %}
+                </div>
+                <br/>
+                <div class="line"></div>
+                <br/>
+                <h3 class="media-header h4">
+                    {{ entity.secondCaption }}
+                </h3>
+                <div class="preview-content">
+                    <div class="clearfix"></div>
+                    <div class="line"></div>
+                    <p>
+                        {{ entity.description|striptags|raw }}
+                    </p>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <a href=" {{ path('slider_slide') }}" class="btn btn-large btn-darkbrown" style="float: left;">
+                Список
+            </a>
+            <a class="btn btn-small btn-border btn-border-brown" style="float: right;"
+               href="{{ path('slider_slide_edit', {id:entity.id}) }}">
+                Редактировать...
+            </a>
+        </div>
+    </div>
+{% endblock content %}

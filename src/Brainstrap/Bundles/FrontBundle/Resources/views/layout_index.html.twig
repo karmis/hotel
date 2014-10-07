@@ -1,0 +1,109 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout.html.twig' %}
+    {% block javascripts %}
+        {{parent()}}
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                "use strict";
+                $('#md-slide-fade').bxSlider({
+                    auto: true,
+                    mode: 'fade',
+                    speed: 500,
+                    pager: false,
+                    controls: true,
+                    responsive: true,
+                    nextText: '',
+                    prevText: '',
+                    onSliderLoad: function(){
+                        $('.bx-prev').html('<i class="icon icon-previous"></i>');
+                        $('.bx-next').html('<i class="icon icon-next"></i>');
+                        // $(window).resize(function(){
+                        //     var w0 =$(".md-slide img").width(),
+                        //         w1 = $(window).width()/2,
+                        //         w2 = w0/2,
+                        //         w = w2 - w1;
+                        //         $(".bx-viewport").width(w0).css("left",-w);
+                        //         console.log(w);
+                        // }).trigger('resize');
+                    }
+                });
+            });
+        </script>
+    {% endblock javascripts %}
+    {% block slider_wrapper %}
+
+    <section class="md-slide-wrapper md-slide-home">
+    <ul id="md-slide-fade" class="md-slide clearfix">
+{% block slider %}{% endblock slider %}
+    </ul></section>
+
+    {% endblock slider_wrapper %}
+
+
+
+    {% block content %}
+        <div class="md-home">
+            <section class="row check-availability">
+                <div class="container clearfix">
+                    <div class="main-page-label grid_4">
+                        <h2 class="title-checkroom">
+                            Забронировать номер
+                        </h2>
+                    </div>
+                    <div class="main-page-form grid_8">
+                        <section class="md-booking">
+                            <div class="box-booking booking-inline clearfix">
+                                {% block booking %}{% endblock booking %}
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+
+
+            {#<section class="row md-home-body">#}
+                {#<div class="container clearfix">#}
+                    {#<aside class="grid_3 md-sidebar">#}
+                        {#{% block left_section %}#}
+                            {#<h2 class="header-sidebar">why Flawles hotel?</h2>#}
+
+                            {#<p>Semper ac dolor vitae accumsan. Cras interdum hendrerit lacinia. Phasellus#}
+                                {#accumsan#}
+                                {#urna#}
+                                {#vitae molestie interdum. Nam sed placerat libero, non eleifend dolor. </p>#}
+
+                            {#<p>Donec ultrices lacinia arcu ut sagittis. Etiam non ante lectus. Mauris egestas,#}
+                                {#tellus#}
+                                {#sed venenatis tincidunt, odio diam iaculis augue, nec tincidunt enim odio id#}
+                                {#arcu.#}
+                                {#Ut#}
+                                {#pellentesque, quam ut sagittis adipiscing, lectus metus mollis magna.</p>#}
+                            {#<ul class="list list-check">#}
+                                {#<li>200 Rooms</li>#}
+                                {#<li>4 Restuarants</li>#}
+                                {#<li>2 Revolving Cocktail bar</li>#}
+                                {#<li>Swimming pool</li>#}
+                                {#<li>24h Parking &amp; Security</li>#}
+                                {#<li>Free airport pick up service</li>#}
+                                {#<li>24 hour front desk staff</li>#}
+                            {#</ul>#}
+                            {#<div class="box-quote"><p>Semper ac dolor vitae accumsan. Cras interdum hendrerit#}
+                                    {#lacinia.#}
+                                    {#Phasellus accumsan urna vitae molestie interdum. Nam sed placerat libero,#}
+                                    {#non#}
+                                    {#eleifend dolor magna.</p><a href="./Home_files/Home.html"#}
+                                                                {#class="text-link link-direct">Lire plus, CEO#}
+                                    {#&amp;#}
+                                    {#Founder</a></div>#}
+                        {#{% endblock left_section %}#}
+
+                    {#</aside>#}
+                    {#<div class="grid_9 md-primary">#}
+                        {#{% block right_section %}#}
+                            {#{% block primary_hotels %}{% endblock %}#}
+                        {#{% endblock right_section %}#}
+                    {#</div>#}
+                </div>
+    {% endblock content %}
+
+
+

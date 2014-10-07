@@ -1,0 +1,30 @@
+tariff_tariffhourly:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffHourly:index" }
+
+tariff_tariffhourly_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffHourly:show" }
+
+tariff_tariffhourly_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffHourly:new" }
+
+tariff_tariffhourly_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffHourly:create" }
+    requirements: { _method: post }
+
+tariff_tariffhourly_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffHourly:edit" }
+
+tariff_tariffhourly_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffHourly:update" }
+    requirements: { _method: post|put }
+
+tariff_tariffhourly_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Tariff\TariffHourly:delete" }
+    requirements: { _method: post|delete }

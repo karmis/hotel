@@ -1,0 +1,8 @@
+<div class="alert alert-{{ block_type|default('success') }}">
+    <h4 class="alert-label">
+        {{ label|default("Предупреждение") }}
+    </h4>
+    <ul class="alert-body list list-triangle">
+        {{ body|default("") }}
+    </ul>
+</div>

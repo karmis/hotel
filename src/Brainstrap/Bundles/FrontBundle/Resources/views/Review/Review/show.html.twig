@@ -1,0 +1,56 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_detail.html.twig' %}
+{% set active_item_menu = "review" %}
+{% set template_letter = "О" %}
+{% set template_caption= "Просмотр отзыва" %}
+{% set template_descr= entity.caption %}
+{% set content_right_caption = entity.caption %}
+{% set slider_enabled = false %}
+{% set detail_type = "show" %}
+{% set prefix_route = "review_review" %}
+
+
+{% block preview_content %}
+
+    <div class="line"></div>
+
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/avatar.html.twig' with {
+    'avatar':entity.avatar,
+    'detail_type':detail_type
+    } only %}
+
+    <div class="line"></div>
+
+    <h2 class="h2">
+        {{ entity.caption }}
+    </h2>
+
+    <div class="line"></div>
+    {#Desctiption#}
+    <p>
+        {{ entity.description|raw }}
+    </p>
+    {#endDescription#}
+{% endblock preview_content %}
+
+{% block left_section %}
+    {#{% if entity.additions|length > 0 %}#}
+    {#<div class="line"></div>#}
+    {#<section class="box-sidebar"><h2 class="h3 header-sidebar">Услуги в номере</h2>#}
+    {#<ul class="list list-check">#}
+
+    {#{% for addition in entity.additions %}#}
+    {#<li>{{ addition.caption }}</li>#}
+    {#{% endfor %}#}
+
+    {#</ul>#}
+    {#</section>#}
+    {#{% endif %}#}
+    {#<section class="box-sidebar">#}
+        {#<div class="line"></div>#}
+        {#{% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {#}
+        {#'label': "Модерирование отзыва",#}
+        {#'body':'Отзыв можно снять с публикации, сняв соответсвующую галочку.',#}
+        {#'block_type':'success'#}
+        {#} only %}#}
+    {#</section>#}
+{% endblock %}

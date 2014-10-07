@@ -1,0 +1,176 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+{% set active_item_menu = "gallery" %}
+{% set current_page_selector = "billing" %}
+{% block stylesheets %}
+{{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/brainstrapbundlesfront/css/colorpicker.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/brainstrapbundlesfront/css/layout.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/brainstrapbundlesfront/js/colorpicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/brainstrapbundlesfront/js/eye.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/brainstrapbundlesfront/js/utils.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/brainstrapbundlesfront/js/layout.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.color-picker').ColorPicker({
+                onSubmit: function (hsb, hex, rgb, el) {
+                    $(el).val(hex);
+                    $(el).ColorPickerHide();
+                },
+                onBeforeShow: function () {
+                    $(this).ColorPickerSetColor(this.value);
+                }
+            })
+                    .bind('keyup', function () {
+                        $(this).ColorPickerSetColor(this.value);
+                    });
+        })
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="md-body md-checkout clearfix">
+        <aside class="grid_3 md-sidebar align-center">
+            <header class="box-heading heading-large">С
+                <div class="decription-override" style="margin-top: -35px;">
+                    <h2 class="h1">
+                        Создание
+                    </h2>
+
+                    <p>слайда администратором </p></div>
+            </header>
+        </aside>
+
+        {{ form_start(form) }}
+
+        {{ form_start(form) }}
+        <div class="grid_9 md-main">
+            <button type="submit" class="btn btn-large btn-darkbrown col-right" style="float: right;">
+                Сохранить изменения
+            </button>
+            <a href=" {{ path('slider_slide') }}" class="btn btn-large btn-darkbrown" style="float: left;">
+                Список
+            </a>
+
+            {#Main#}
+            <section class="row clearfix">
+                <header class="box-heading">
+                    <h3 class="head headborder" style="padding: 15px;">
+                        Главное
+                    </h3>
+                </header>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label class="label-control">
+                            Фото<span class="start">*</span>
+                        </label>
+                        {% if entity.photo is defined and entity.photo.path is defined %}
+                            <img src="{{ entity.photo.path|apply_filter('avatar_in_item_edit') }}" alt=""/>
+                        {% else %}
+                            <img src="{{ asset('common/images/404.png') }}"/>
+                        {% endif %}
+
+                        {{ form_widget(form.photo, { 'attr': {'class': 'input-control validate-photo', 'placeholder': 'Фото'} }) }}
+                        <div class="inputErrors bs-alert bs-alert-error">
+                            {{ form_errors(form.photo) }}
+                        </div>
+                    </div>
+
+                    <div class="col_md_3">
+                        <div style="padding-bottom: 5px; padding-right: 10px;">
+                            {{ form_widget(form.forMain, { 'attr': {'class': 'input-checkbox validate-recommended'} }) }}
+                            {{ form_label(form.forMain, form.forMain, {'label_attr': {'class': 'label-radio' }}
+                            ) }}
+                        </div>
+                    </div>
+
+                    <div class="col_md_3">
+                        <div style="padding-bottom: 5px; padding-right: 10px;">
+                            {{ form_widget(form.forGallery, { 'attr': {'class': 'input-checkbox validate-recommended'} }) }}
+                            {{ form_label(form.forGallery, form.forGallery, {'label_attr': {'class': 'label-radio' }}
+                            ) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control">
+                            Заголовок<span class="start">*</span>
+                        </label>
+                        {{ form_widget(form.caption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Заголовок'} }) }}
+                        <div class="inputErrors bs-alert bs-alert-error">
+                            {{ form_errors(form.caption) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control">
+                            Цвет первого заголовка<span class="start">*</span>
+                        </label>
+                        {{ form_widget(form.colorCaption, { 'attr': {'class': 'input-control validate-color color-picker', 'placeholder': 'Цвет первого заголовка'} }) }}
+                        <div class="inputErrors bs-alert bs-alert-error">
+                            {{ form_errors(form.colorCaption) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control">
+                            Второй заголовок<span class="start">*</span>
+                        </label>
+                        {{ form_widget(form.secondCaption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Второй заголовок'} }) }}
+                        <div class="inputErrors bs-alert bs-alert-error">
+                            {{ form_errors(form.secondCaption) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control">
+                            Цвет второго заголовка<span class="start">*</span>
+                        </label>
+                        {{ form_widget(form.colorSecondCaption, { 'attr': {'class': 'input-control validate-color color-picker', 'placeholder': 'Цвет второго заголовка'} }) }}
+                        <div class="inputErrors bs-alert bs-alert-error">
+                            {{ form_errors(form.colorSecondCaption) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_widget(form.description, { 'attr': {'class': 'input-control validate-description', 'placeholder': 'Описание'} }) }}
+                        <div class="inputErrors bs-alert bs-alert-error">
+                            {{ form_errors(form.description) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control">
+                            Цвет описания<span class="start">*</span>
+                        </label>
+                        {{ form_widget(form.colorDescription, { 'attr': {'class': 'input-control validate-color color-picker', 'placeholder': 'Цвет описания'} }) }}
+                        <div class="inputErrors bs-alert bs-alert-error">
+                            {{ form_errors(form.colorDescription) }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <button type="submit" class="btn btn-large btn-darkbrown col-right" style="float: right;">
+                Сохранить изменения
+            </button>
+
+            <a href=" {{ path('slider_slide') }}" class="btn btn-large btn-darkbrown" style="float: left;">
+                Список
+            </a>
+
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+
+
+    </div>
+
+
+
+{% endblock content %}

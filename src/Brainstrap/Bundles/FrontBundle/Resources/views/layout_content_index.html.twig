@@ -1,0 +1,44 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+
+{% block content %}
+    <div class="md-body md-room-detail clearfix">
+        <div class="grid_9 md-main">
+
+            <section class="heading-absolute box-sidebar align-center">
+                <header class="box-heading heading-large">
+                    {{ template_letter|default('') }}
+                    <div class="decription-override" style="margin-top: -38px;">
+                        <h2 class="h1" style="font-size: 23px;">
+                            {{ template_caption|default('') }}
+                        </h2>
+
+                        <p>
+                            {{ template_descr|default('') }}
+                        </p>
+                    </div>
+                </header>
+            </section>
+
+            <div class="row">
+                {% block flashes %}{% endblock flashes %}
+                <div class="box-booking booking-inline">
+                    <div class="form-group last">
+                        {% block form_filter %}
+
+                        {% endblock form_filter %}
+                    </div>
+                </div>
+                {#<div class="row slide-preview-room">#}
+
+                {#</div>#}
+                <div class="line"></div>
+                <div class="preview-content">
+                    {% block right_section %}{% endblock right_section %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

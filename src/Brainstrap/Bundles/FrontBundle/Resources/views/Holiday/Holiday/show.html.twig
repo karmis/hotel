@@ -1,0 +1,56 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_detail.html.twig' %}
+{% set active_item_menu = "holiday" %}
+{% set template_letter = "С" %}
+{% set template_caption= "Событие" %}
+{% set template_descr= entity.caption %}
+{% set content_right_caption = entity.caption %}
+{% set slider_enabled = true %}
+{% set detail_type = "show" %}
+{% set prefix_route = "holiday_holiday" %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block show_slider_block %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/slider.html.twig' with
+    {
+    'gallery': entity.gallery,
+    } only %}
+{% endblock show_slider_block %}
+
+{% block preview_content %}
+    <h2 class="h2">
+        {{ entity.caption }}
+    </h2>
+    {#Desctiption#}
+    <p>
+        {{ entity.description|raw }}
+    </p>
+    {#endDescription#}
+{% endblock preview_content %}
+
+{% block left_section %}
+    {#{% if entity.additions|length > 0 %}#}
+    {#<div class="line"></div>#}
+    {#<section class="box-sidebar"><h2 class="h3 header-sidebar">Услуги в номере</h2>#}
+    {#<ul class="list list-check">#}
+
+    {#{% for addition in entity.additions %}#}
+    {#<li>{{ addition.caption }}</li>#}
+    {#{% endfor %}#}
+
+    {#</ul>#}
+    {#</section>#}
+    {#{% endif %}#}
+
+    <section class="box-sidebar">
+        <div class="line"></div>
+        <div class="box-quote">
+            <p>
+                Во время Государственных и Суздальских праздников могут быть организованы праздничные программы и
+                заезды турами цены на которые необходимо уточнять.
+            </p>
+        </div>
+    </section>
+{% endblock %}

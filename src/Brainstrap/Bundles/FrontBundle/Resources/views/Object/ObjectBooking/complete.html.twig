@@ -1,0 +1,22 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_detail.html.twig' %}
+{% set active_item_menu = "object" %}
+{% set template_letter = "Н" %}
+{% set template_caption= "Номер" %}
+{% set template_descr= "бронирование номера" %}
+{% set content_right_caption = "успешное бронирование" %}
+{% set detail_type = false %}
+{% set slider_enabled = false %}
+{#{% set entity = [] %}#}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block preview_content %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+    'label': "Бронирование успешно завершено",
+    'body':'С вами свяжутся для подтверждения бронирования',
+    } only %}
+
+    {#TODO Вывыести ссылки на галлерею#}
+{% endblock preview_content %}

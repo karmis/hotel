@@ -1,0 +1,30 @@
+{% block captcha_widget %}
+    {% if is_human %}
+        -
+    {% else %}
+        {% spaceless %}
+
+            <div class="form-group" style="width: 100%">
+                <label class="label-control">
+                    <img id="{{ image_id }}" src="{{ captcha_code }}" alt="" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" />
+                </label>
+                {{ form_widget(form,{'attr':{'class':'input-control validate-captcha' }}) }}
+                {#{{ form_widget(edit_form.description, { 'attr': {'class': 'input-control validate-description tinymce', 'placeholder': 'Подробное описание'} }) }}#}
+                <div class="inputErrors bs-alert bs-alert-error">
+                    {{ form_errors(form) }}
+                </div>
+            </div>
+
+            {% if reload %}
+                <script type="text/javascript">
+                    function reload_{{ image_id }}() {
+                        var img = document.getElementById('{{ image_id }}');
+                        img.src = '{{ captcha_code }}?n=' + (new Date()).getTime();
+                    }
+                </script>
+                <a class="captcha_reload" href="javascript:reload_{{ image_id }}();">{{ 'Renew'|trans({}, 'gregwar_captcha') }}</a>
+            {% endif %}
+
+        {% endspaceless %}
+    {% endif %}
+{% endblock %}

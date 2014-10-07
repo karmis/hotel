@@ -1,0 +1,36 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_index.html.twig' %}
+{% set active_item_menu = "object" %}
+{% set template_letter = "Н" %}
+{% set template_caption= "Номера" %}
+{% set template_descr= "список номеров" %}
+{% set content_right_caption = "Список номеров" %}
+{% set description_length = 250 %}
+{% set detail_type = "show" %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block right_section %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path("object_objectbooking") }}" class="btn btn-small btn-black">
+            Информация о бронирование
+        </a>
+    {% endif %}
+    {% include 'BrainstrapBundlesFrontBundle::Blocks/list.html.twig' with
+    {
+    'entities': entities,
+    'prefix_route':'object_object',
+    'detail_type': detail_type
+    } only %}
+{% endblock right_section %}
+
+{% block form_filter %}
+    {% include 'BrainstrapBundlesFrontBundle::Object/Object/filter.html.twig' with
+    {
+    'form_filter': form_filter,
+    'type':'black'
+    } only %}
+{% endblock form_filter %}
+
+

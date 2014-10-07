@@ -1,0 +1,60 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_modify.html.twig' %}
+{% set active_item_menu = "object_type" %}
+{% set template_letter = "Т" %}
+{% set template_descr= "типы почасовых тарифов" %}
+{% set template_descr= "Типы почасовых тарифов" %}
+{% set content_right_caption = entity.caption %}
+{% set slider_enabled = true %}
+{% set detail_type = "edit" %}
+{% set prefix_route = "tariff_tariffhourly" %}
+
+{% block preview_content %}
+    <div class="form-group">
+        <label class="label-control">
+            Заголовок<span class="start">*</span>
+        </label>
+        {{ form_widget(edit_form.caption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Заголовок'} }) }}
+        <div class="inputErrors bs-alert bs-alert-error">
+            {{ form_errors(edit_form.caption) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="label-control">
+            Цена за первый час<span class="start">*</span>
+        </label>
+        {{ form_widget(edit_form.priceFirstHourly, { 'attr': {'class': 'input-control validate-priceFirstHourly', 'placeholder': 'Цена'} }) }}
+        <div class="inputErrors bs-alert bs-alert-error">
+            {{ form_errors(edit_form.priceFirstHourly) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="label-control">
+            Цена за следующие часы<span class="start">*</span>
+        </label>
+        {{ form_widget(edit_form.priceNextHourly, { 'attr': {'class': 'input-control validate-priceNextHourly', 'placeholder': 'Цена'} }) }}
+        <div class="inputErrors bs-alert bs-alert-error">
+            {{ form_errors(edit_form.priceNextHourly) }}
+        </div>
+    </div>
+
+    <div class="input-group select-brown">
+        <label class="collapse">
+            {{ form_widget(edit_form.group, { 'attr': {'class': 'form-select validate-group'} }) }}
+        </label>
+    </div>
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(edit_form.group) }}
+    </div>
+    <br/>
+    <div class="input-group select-brown">
+        <label class="collapse">
+            {{ form_widget(edit_form.type, { 'attr': {'class': 'form-select validate-type'} }) }}
+        </label>
+    </div>
+    <div class="inputErrors bs-alert bs-alert-error">
+        {{ form_errors(edit_form.type) }}
+    </div>
+{% endblock preview_content %}
+

@@ -1,0 +1,13 @@
+{
+    "name": "Booking System",
+    "dependencies": {
+        "jquery": "jquery#latest",
+        "jquery.migrate": "jquery.migrate#latest",
+        "lightbox": "lightbox#latest",
+        "jquery-validation": "jquery-validation#latest",
+        "jquery.maskedinput": "jquery.maskedinput#latest",
+        "bxslider": "bxslider#latest",
+        "jQuery-Collapse": "jQuery-Collapse#latest",
+        "jquery.lazyload":"jquery.lazyload#latest"
+    }
+}

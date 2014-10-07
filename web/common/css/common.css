@@ -1,0 +1,53 @@
+/* buttons */
+.btn-orange:hover, .btn-orange:focus, .btn-orange:active, .btn-orange.active, .open>.dropdown-toggle.btn-orange {
+    color: #fff !important;
+    background-color: #D5502F !important;
+}
+.btn-orange {
+    color: #fff !important;
+    background-color: #f05c37 !important;
+    border-color: #D5502F !important;
+}
+
+.btn-orange-light:hover, .btn-orange-light:focus, .btn-orange-light:active, .btn-orange-light.active, .open>.dropdown-toggle.btn-orange-light {
+    color: #fff !important;
+    background-color: #FF653F !important;
+}
+.btn-orange-light {
+    color: #fff !important;
+    background-color: #f05c37 !important;
+    border-color: #D5502F !important;
+}
+
+.btn-black:hover, .btn-black:focus, .btn-black:active, .btn-black.active, .open>.dropdown-toggle.btn-black {
+    color: #eee !important;
+    background-color: #000 !important;
+}
+.btn-black {
+    color: #fff !important;
+    background-color: #111 !important;
+    border-color: #333 !important;
+}
+
+/* Panels */
+.panel-black {
+    border-color: #000 !important;
+    background-color: #111 !important;
+    color: #eee !important;
+}
+
+.panel-grey {
+    border-color: #111 !important;
+    background-color: #333 !important;
+    color: #eee !important;
+    margin: 12px !important;
+}
+
+/* Form */
+.inputErrors ul li {
+    list-style: none;
+    margin-left: -40px;
+    margin-top: -15px;
+    font-size: 12px;
+    color: #f00;
+}

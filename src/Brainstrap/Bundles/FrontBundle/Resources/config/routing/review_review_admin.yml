@@ -1,0 +1,25 @@
+review_review_show:
+    path:     /{id}/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Review\Review:show" }
+    requirements: { id: \d+ }
+
+review_review_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Review\Review:new" }
+
+
+
+review_review_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Review\Review:edit" }
+    requirements: { id: \d+ }
+
+review_review_update:
+    path:     /{id}/update/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Review\Review:update" }
+    requirements: { _method: post|put, id: \d+ }
+
+review_review_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Review\Review:delete" }
+    requirements: { _method: post|delete, id: \d+ }

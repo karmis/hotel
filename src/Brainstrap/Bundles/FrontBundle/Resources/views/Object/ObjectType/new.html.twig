@@ -1,0 +1,67 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+{% set active_item_menu = "gallery" %}
+{% set current_page_selector = "billing" %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="md-body md-checkout clearfix">
+    <aside class="grid_3 md-sidebar align-center">
+        <header class="box-heading heading-large">С
+            <div class="decription-override" style="margin-top: -35px;">
+                <h2 class="h1">
+                    Создание
+                </h2>
+
+                <p>слайда администратором </p></div>
+        </header>
+    </aside>
+
+    {{ form_start(form) }}
+    <div class="grid_9 md-main">
+        {#<button type="submit" class="btn btn-large btn-darkbrown col-right" style="float: right;">#}
+            {#Сохранить изменения#}
+        {#</button>#}
+        {#<a href=" {{ path('object_objecttype') }}" class="btn btn-large btn-darkbrown" style="float: left;">#}
+            {#Список#}
+        {#</a>#}
+        {#Main#}
+        <section class="row clearfix">
+            <header class="box-heading">
+                <h3 class="head headborder">
+                    Изменение типа для номера
+                </h3>
+            </header>
+            <div class="box-body">
+
+                <div class="form-group">
+                    <label class="label-control">
+                        Заголовок<span class="start">*</span>
+                    </label>
+                    {{ form_widget(form.caption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Заголовок'} }) }}
+                    <div class="inputErrors bs-alert bs-alert-error">
+                        {{ form_errors(form.caption) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <button type="submit" class="btn btn-large btn-darkbrown col-right" style="float: right;">
+            Сохранить изменения
+        </button>
+
+        <a href=" {{ path('object_objecttype') }}" class="btn btn-large btn-darkbrown" style="float: left;">
+            Список
+        </a>
+
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+
+{% endblock content %}

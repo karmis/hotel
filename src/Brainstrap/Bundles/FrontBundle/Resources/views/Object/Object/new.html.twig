@@ -1,0 +1,424 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content.html.twig' %}
+{% set active_item_menu = "object" %}
+{% set current_page_selector = "billing" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            BS.Forms.Collection.init(['#parameters-fields-list', '#gallery-fields-list']);
+        });
+    </script>
+{% endblock %}
+
+{% macro collectionItem_param(data) %}
+    <li class="form-group">
+        Параметр: {{ form_widget(data.caption,{ 'attr': {'class': 'input-control validate-parameter-caption' }}) }} со
+        значением {{ form_widget(data.value,{ 'attr': {'class': 'input-control validate-parameter-value' }}) }}
+    </li>
+{% endmacro %}
+
+{% macro collectionItem_gallery(data, entity, key) %}
+    <li class="form-group">
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    {% if entity.gallery[key].photo.path is defined %}
+                        <img src="{{ entity.gallery[key].photo.path|apply_filter('gallery_item_in_list_admin') }}"
+                             alt=""/>
+                    {% endif %}
+
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        {{ form_widget(data.photo, { 'attr': {'class': 'input-control validate-gallery-photo' }}) }}
+                    </div>
+                    <div style="padding: 15px;">
+
+                    </div>
+
+                    <div class="caption">
+                        <p> {{ form_widget(data.caption, { 'attr': {'class': 'input-control validate-caption caption', 'placeholder': 'Заголовок изображения' }}
+                            ) }}</p>
+                    </div>
+
+                    <div class="caption">
+                        <p> {{ form_widget(data.description, { 'attr': {'class': 'input-control validate-gallerey textarea-small', 'placeholder': 'Описание для изображения' }}
+                            ) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+{% endmacro %}
+
+
+{% block content %}
+
+    <div class="md-body md-checkout clearfix">
+<aside class="grid_3 md-sidebar align-center">
+    <header class="box-heading heading-large">С
+        <div class="decription-override" style="margin-top: -35px;">
+            <h2 class="h1">
+                Создание
+            </h2>
+
+            <p>номера администратором </p></div>
+    </header>
+</aside>
+
+{{ form_start(form) }}
+<div class="grid_9 md-main">
+<button type="submit" class="btn btn-large btn-darkbrown col-right" style="float: right;">
+    Сохранить изменения
+</button>
+
+{#Main#}
+<section class="row clearfix">
+    <header class="box-heading">
+        <h3 class="head headborder">
+            Главное
+        </h3>
+    </header>
+    <div class="box-body">
+
+        <div class="form-group">
+            <label class="label-control">
+                Главное фото номера<span class="start">*</span>
+            </label>
+            {% if entity.avatar is defined and entity.avatar.path is defined %}
+                <img src="{{ entity.avatar.path|apply_filter('avatar_in_item_edit') }}" alt=""/>
+            {% else %}
+                <img src="{{ asset('common/images/404.png') }}" alt="{{ entity.caption }}"/>
+            {% endif %}
+
+            {{ form_widget(form.avatar, { 'attr': {'class': 'input-control validate-avatar', 'placeholder': 'Аватар номера'} }) }}
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.avatar) }}
+            </div>
+        </div>
+
+        <div class="col_md_3">
+            <div style="padding-bottom: 5px; padding-right: 10px;">
+                {{ form_widget(form.recommended, { 'attr': {'class': 'input-checkbox validate-recommended'} }) }}
+                {{ form_label(form.recommended, form.recommended, {'label_attr': {'class': 'label-radio' }}
+                ) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-control">
+                Название<span class="start">*</span>
+            </label>
+            {{ form_widget(form.caption, { 'attr': {'class': 'input-control validate-caption', 'placeholder': 'Название номера'} }) }}
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.caption) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-control">
+                Тип номера<span class="start">*</span>
+            </label>
+
+            <div class="input-group select-brown">
+                <label class="collapse">
+                    {{ form_widget(form.type, { 'attr': {'class': 'form-select validate-type','placeholder': 'Тип номера'} }) }}
+                </label>
+            </div>
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.type) }}
+            </div>
+            <br/>
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('object_objecttype') }}">
+                Изменить список
+            </a>
+        </div>
+
+        <div class="form-group">
+            <label class="label-control">
+                Спальных мест<span class="start">*</span>
+            </label>
+
+            <div class="input-group select-brown">
+                <label class="collapse">
+                    {{ form_widget(form.berth, { 'attr': {'class': 'form-select validate-berth'} }) }}
+                </label>
+            </div>
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.berth) }}
+            </div>
+            <br/>
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('object_objectberth') }}">
+                Изменить список
+            </a>
+        </div>
+        <div class="form-group">
+            <label class="label-control">
+                Описание
+            </label>
+            {{ form_widget(form.description, { 'attr': {'class': 'input-control validate-description tinymce', 'placeholder': 'Подробное описание к номеру'} }) }}
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.description) }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{#Tariffs#}
+<section class="row clearfix">
+    <header class="box-heading">
+        <h3 class="head headborder">
+            Группы тарифов
+        </h3>
+    </header>
+    <div class="box-body">
+        <div class="alert alert-attention">
+            <h4 class="alert-label">
+                Описание работы тарифов
+            </h4>
+            <ul class="alert-body list list-triangle">
+                Каждый тариф привязывается к отделенной группе тарифов <br/>
+                Так, например, к группе тарифов "Тариф будничный" привязываются все тарифы для будничных дней всех номеров.
+                <br/>
+                При редактирование или создание тарифов необходимо либо создать группу для тарифа, либо выбрать из существующих
+                <br/> <br/>
+                <a class="btn btn-small btn-border btn-border-brown" href="{{ path('tariff_tariffgroup') }}">
+                    Управлять группами
+                </a>
+
+                <a class="btn btn-small btn-border btn-border-brown" href="{{ path('tariff_tariff') }}">
+                    Управлять тарифами
+                </a>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label class="label-control">
+                Тариф будничный<span class="start">*</span>
+            </label>
+
+            <div class="input-group select-brown">
+                <label class="collapse">
+                    {{ form_widget(form.tariffWeekly, { 'attr': {'class': 'form-select validate-tariff','placeholder': 'Тариф будничный'} }) }}
+                </label>
+            </div>
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.tariffWeekly) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-control">
+                Тариф выходной<span class="start">*</span>
+            </label>
+
+            <div class="input-group select-brown">
+                <label class="collapse">
+                    {{ form_widget(form.tariffWeekend, { 'attr': {'class': 'form-select validate-tariff','placeholder': 'Тариф выходной'} }) }}
+                </label>
+            </div>
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.tariffWeekend) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="label-control">
+                Тариф праздничный<span class="start">*</span>
+            </label>
+
+            <div class="input-group select-brown">
+                <label class="collapse">
+                    {{ form_widget(form.tariffHoliday, { 'attr': {'class': 'form-select validate-tariff','placeholder': 'Тариф праздничный'} }) }}
+                </label>
+            </div>
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.tariffHoliday) }}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="row clearfix">
+    <header class="box-heading">
+        <h3 class="head headborder">
+            Группы тарифов
+        </h3>
+    </header>
+    <div class="box-body">
+        <div class="alert alert-attention">
+            <h4 class="alert-label">
+                Описание работы тарифов
+            </h4>
+            <ul class="alert-body list list-triangle">
+                Каждый тариф привязывается к отделенному типу тарифов <br/>
+                Так, например, к типу тарифов "Поздний выезд" привязываются все тарифы для позднего выезда.
+                <br/>
+
+                {#<a class="btn btn-small btn-border btn-border-brown" href="{{ path('tariff_tarifftype') }}">#}
+                {#Управлять типами#}
+                {#</a>#}
+            </ul>
+        </div>
+        <div class="form-group">
+            <label class="label-control">
+                Тариф поздний выезд<span class="start">*</span>
+            </label>
+
+            <div class="input-group select-brown">
+                <label class="collapse">
+                    {{ form_widget(form.tariffLate, { 'attr': {'class': 'form-select validate-tariff','placeholder': 'Тариф поздний выезд'} }) }}
+                </label>
+            </div>
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.tariffLate) }}
+            </div>
+            <br/>
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('tariff_tarifflategroup') }}">
+                Управление группами поздних тарифов
+            </a>
+
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('tariff_tarifflate') }}">
+                Управление поздними тарифами
+            </a>
+        </div>
+
+        <div class="form-group">
+            <label class="label-control">
+                Тариф почасовой оплаты<span class="start">*</span>
+            </label>
+            <div class="input-group select-brown">
+                <label class="collapse">
+                    {{ form_widget(form.tariffHourly, { 'attr': {'class': 'form-select validate-tariff','placeholder': 'Тариф почасовой оплаты'} }) }}
+                </label>
+            </div>
+            <div class="inputErrors bs-alert bs-alert-error">
+                {{ form_errors(form.tariffHourly) }}
+            </div>
+            <br/>
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('tariff_tariffhourlygroup') }}">
+                Управление группами почасовых тарифов
+            </a>
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('tariff_tariffhourly') }}">
+                Управление почасовыми тарифами
+            </a>
+        </div>
+    </div>
+</section>
+
+{#Additions#}
+<section class="row clearfix">
+    <header class="box-heading">
+        <h3 class="head headborder">
+            Дополнения к номеру
+        </h3>
+    </header>
+    <div class="box-body">
+        <div class="col-left">
+            <header class="box-heading">
+                <h3 class="headborder-small">
+                    Включено в стоимость
+                </h3>
+            </header>
+            <div class="col_md_3">
+                {% for form_addition in form.additions %}
+                    <div style="padding-bottom: 5px; padding-right: 10px;">
+                        {{ form_widget(form_addition, { 'attr': {'class': 'input-checkbox validate-addition', 'checked': 'checked'} }) }}
+                        {{ form_label(form_addition, form_addition.vars.label, {'label_attr': {'class': 'label-radio' }}
+                        ) }}
+                    </div>
+
+                {% endfor %}
+            </div>
+            <br/>
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('object_objectaddition') }}">
+                Изменить список
+            </a>
+        </div>
+        <div class="col-right">
+            <header class="box-heading">
+                <h3 class="headborder-small">
+                    Дополнительные услуги
+                </h3>
+            </header>
+            <div class="col_md_3">
+                {% for form_service in form.services %}
+                    <div style="padding-bottom: 5px; padding-right: 10px;">
+                        {{ form_widget(form_service, { 'attr': {'class': 'input-checkbox validate-service', 'checked': 'checked'} }) }}
+                        {{ form_label(form_service, form_service.vars.label, {'label_attr': {'class': 'label-radio' }}
+                        ) }}
+                    </div>
+                {% endfor %}
+            </div>
+            <br/>
+            <a class="btn btn-small btn-border btn-border-brown" href="{{ path('object_objectservice') }}">
+                Изменить список
+            </a>
+        </div>
+    </div>
+</section>
+
+{#Parameters#}
+<section class="row clearfix">
+    <header class="box-heading">
+        <h3 class="head headborder">
+            Детали
+        </h3>
+    </header>
+    <div class="box-body">
+        <div class="row">
+            <header class="box-heading">
+                <h3 class="headborder-small">
+                    Параметры
+                </h3>
+            </header>
+            <div class="col_md_3">
+                <ul class="list-unstyled" id="parameters-fields-list"
+                    data-prototype="{{ _self.collectionItem_param(form.parameters.vars.prototype)|e }}">
+                    {% for param in form.parameters %}
+                        {{ _self.collectionItem_param(param) }}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <header class="box-heading">
+                <h3 class="headborder-small">
+                    Галлерея
+                </h3>
+            </header>
+            <div class="col_md_3">
+                <ul class="list-unstyled" id="gallery-fields-list"
+                    data-prototype="{{ _self.collectionItem_gallery(form.gallery.vars.prototype)|e }}">
+                    {% for key, gal in form.gallery %}
+                        {{ _self.collectionItem_gallery(gal, entity, key) }}
+                        <div class="clearfix"></div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<button type="submit" class="btn btn-large btn-darkbrown col-right" style="float: right;">
+    Сохранить изменения
+</button>
+
+
+
+<div style="display: none">
+    {{ form_widget(form.gallery) }}
+    {{ form_widget(form.parameters) }}
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}
+
+{#Удалить#}
+{{ form_start(delete_form) }}
+{{ form_widget(delete_form.submit, { 'attr': {'class':'btn btn-small btn-border btn-border-brown btn-remove'} }) }}
+{{ form_end(delete_form) }}
+</div>
+
+
+
+{% endblock content %}

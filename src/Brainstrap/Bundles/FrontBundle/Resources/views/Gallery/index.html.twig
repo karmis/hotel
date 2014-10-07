@@ -1,0 +1,67 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout.html.twig' %}
+{% set active_item_menu = "gallery" %}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/brainstrapbundlesfront/photobox/photobox/photobox.css') }}" type="text/css"
+              rel="stylesheet">
+        <link href="{{ asset('bundles/brainstrapbundlesfront/css/gallery.css') }}" type="text/css"
+              rel="stylesheet">
+
+    {% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" charset="utf-8"
+            src="{{ asset('bundles/brainstrapbundlesfront/photobox/photobox/jquery.photobox.js') }}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var gallery = $('#gallery');
+            gallery.photobox('a', { thumbs: true, loop: false });
+            setTimeout(window._photobox.history.load, 1000);
+        })
+    </script>
+{% endblock javascripts %}
+{% block slider %}
+    <div id="gallery_wrap" style="height: 800px;">
+        <div id='wrap'>
+            <div class='main'>
+
+                <section class="box-sidebar opcbg" style="margin-top: 25px;">
+                    <h2 class="h3 header-sidebar">Галерея отеля "Кремлевский"</h2>
+                    <ul class="list list-check">
+
+                        <li>Отличное место для отдыха</li>
+                        <li>Праздники, мероприятия</li>
+                        <li>Дополнительный завтрак</li>
+                        <li>Развлекательная программа</li>
+                        <li>Ресторан национальной кухни</li>
+                        <li>и многе другое...</li>
+                        <li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path("slider_slide") }}" class="btn btn-small btn-black">
+                                    Управлять слайдами
+                                </a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <ul id='gallery'>
+                {% for entity in entities %}
+                    <li class="loaded">
+                        <a href="{{ entity.photo.path }}">
+                            <img src="{{ entity.photo.path|apply_filter('gallery_item_in_gallery') }}"
+                                 title="{{ entity.caption }}">
+                        </a>
+                    </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+
+
+{% endblock slider %}

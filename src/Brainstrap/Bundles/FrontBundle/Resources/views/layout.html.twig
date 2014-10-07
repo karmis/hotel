@@ -1,0 +1,264 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" charset="UTF-8">
+        $(function () {
+            "use strict";
+
+            jQuery(function($){
+                $.datepicker.regional['ru'] = {
+                    closeText: 'Закрыть',
+                    prevText: '&#x3c;Пред',
+                    nextText: 'След&#x3e;',
+                    currentText: 'Сегодня',
+                    monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                        'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+                    monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                        'Июл','Авг','Сен','Окт','Ноя','Дек'],
+                    dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+                    dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+                    dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+                    weekHeader: 'Не',
+                    dateFormat: 'dd.mm.yy',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''};
+                $.datepicker.setDefaults($.datepicker.regional['ru']);
+            });
+
+            var currentDate = new Date();
+            var nextDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+            var datePickerStart = $(".bs-date-datepicker.date-startDate").datepicker({
+                changeMonth: false,
+                changeYear: false,
+                dateFormat: 'dd/mm/yy',
+                minDate: 0,
+                defaultDate: currentDate
+            });
+            var datePickerEnd = $(".bs-date-datepicker.date-endDate").datepicker({
+                changeMonth: false,
+                changeYear: false,
+                dateFormat: 'dd/mm/yy',
+                minDate: 0,
+                defaultDate: nextDay
+            });
+
+//
+//            datePickerStart.datepicker('setDate', currentDate);
+//
+//            datePickerEnd.datepicker('setDate', nextDay);
+
+            {% if active_item_menu is defined %}
+            var activeMenuSel = $(".item-menu-{{ active_item_menu }}");
+            if (activeMenuSel.length > 0) {
+                activeMenuSel.addClass('active');
+            }
+            {% endif %}
+
+            $('.btn-remove').on('click', function () {
+                if (confirm("Удаление объекта! Вы уверены?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            });
+
+            $("img.lazy").lazyload();
+
+        });
+    </script>
+
+    {{ tinymce_init() }}
+{% endblock javascripts %}
+
+{% block body %}
+    <div class="md-hotel">
+        <div id="mp-pusher" class="mp-pusher">
+
+            {% block header %}
+                <header class="md-header">
+                    <div class="container clearfix">
+                        <div class="grid_12">
+                            <h1 class="md-logo">
+                                <a href="{{ path('brainstrap_bundles_front_homepage') }}">
+                                    <img src="{{ asset('bundles/brainstrapbundlesfront/images/spec/logo.png') }}"
+                                         alt="logo">
+                                </a>
+                            </h1>
+                            {% block menu %}
+                                <nav id="main-nav" class="nav-collapse">
+
+                                    <ul id="main-menu" class="md-menu">
+                                        <li>
+                                            <a class="item-menu-object" href="{{ path('object_object') }}">Номера</a>
+                                        </li>
+
+                                        <li>
+                                            <a class="item-menu-holiday"
+                                               href="{{ path('holiday_holiday') }}">События</a>
+                                        </li>
+                                        <li>
+                                            <a class="item-menu-gallery"
+                                               href="{{ path('brainstrap_bundles_front_gallery') }}">Галерея</a>
+                                        </li>
+                                        <li>
+                                            <a class="item-menu-review" href="{{ path('review_review') }}">Отзывы</a>
+                                        </li>
+
+                                        <li>
+                                            <a class="item-menu-contact"
+                                               href="{{ path('contact_contact') }}">Контакты</a>
+                                        </li>
+                                        <li>
+                                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                                {# {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | #}
+                                                <a href="{{ path('fos_user_security_logout') }}">
+                                                    Выйти
+                                                </a>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </nav>
+                            {% endblock menu %}
+                            <a id="sys_btn_toogle_menu" class="btn-toogle-res-menu"
+                               href="#"></a></div>
+                    </div>
+                </header>
+
+
+
+                {% block submenu %}
+                    <nav id="mp-menu" class="mp-menu alternate-menu mp-overlap right-side">
+                        <div class="mp-level" data-level="1"><h2>Меню</h2>
+                            <ul>
+                                <li>
+                                    <a class="item-menu-object" href="{{ path('object_object') }}">Номера</a>
+                                </li>
+
+                                <li>
+                                    <a class="item-menu-holiday" href="{{ path('holiday_holiday') }}">События</a>
+                                </li>
+                                <li>
+                                    <a class="item-menu-gallery" href="{{ path('brainstrap_bundles_front_gallery') }}">Галерея</a>
+                                </li>
+                                <li>
+                                    <a class="item-menu-review" href="{{ path('review_review') }}">Отзывы</a>
+                                </li>
+
+                                <li>
+                                    <a class="item-menu-contact" href="{{ path('contact_contact') }}">Контакты</a>
+                                </li>
+
+                                <li>
+                                    
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    {# {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} | #}
+                                    <a href="{{ path('fos_user_security_logout') }}">
+                                        ВЫйти
+                                    </a>
+                                {% endif %}
+                                </li>
+
+                            </ul>
+                        </div>
+                    </nav>
+                {% endblock submenu %}
+            {% endblock header %}
+
+
+            {% block slider_wrapper %}
+                {% block slider %}
+                {% endblock slider %}
+            {% endblock slider_wrapper %}
+
+
+            {% block content_wrapper %}
+                {% block content %} {% endblock content %}
+            {% endblock content_wrapper %}
+
+
+            {% block footer %}
+                <footer class="md-footer">
+                    <div class="container clearfix">
+                        <div class="grid_12">
+                            <div class="grid_3 footer-column inner-left">
+                                {% block contacts %}
+                                    <div class="hotel-address"><h3>Отель "Кремлевский"</h3>
+
+                                        <div class="footer-content">
+                                            <address>
+                                                <p>
+                                                    ул.Толстого, д. 5.
+                                                </p>
+
+                                                <p>
+                                                    Владимирская область, город Суздаль.
+                                                </p>
+                                            </address>
+                                            <p>
+                                                <a href="{{ path('brainstrap_bundles_front_homepage') }}"
+                                                   class="website">
+                                                    © Отель "Кремлевский"
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                {% endblock contacts %}
+                            </div>
+                            <div class="grid_5 footer-column">
+                                {% block feedback %}
+                                    <div class="hotel-contact"><h3>Контакты</h3>
+                                        <ul class="footer-content">
+                                            <li>E-mail <span class="hotel-number">trapeza1@mail.ru</span></li>
+                                            <li>Бронирование <span class="hotel-number">+7 (49231) 2-50-55</span></li>
+                                            <li>Почтовый индекс <span class="hotel-number">601293</span></li>
+                                        </ul>
+                                    </div>
+                                {% endblock feedback %}
+                            </div>
+                            <div class="grid_4 footer-column inner-right">
+                                {% block newsletter %}
+                                    <div class="hotel-news"><h3>Обратная связь</h3>
+
+                                        <div class="footer-content">
+                                            <p>
+                                                Связаться с нами или заказать звонок
+                                            </p>
+                                            <br/>
+                                            <button id="newsletter" class="btn btn-brown">
+                                                <a href="{{ path('brainstrap_bundles_front_feedback') }}">
+                                                    Связаться
+                                                </a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                {% endblock newsletter %}
+                            </div>
+                        </div>
+                        {#<div class="grid_12">#}
+                        {#<div class="footer-social">#}
+                        {#<div class="social-inner"><h4>Follow us</h4><span class="social-group"><a#}
+                        {#href="./Home_files/Home.html"><i class="icon icon-facebook"></i></a><a#}
+                        {#href="./Home_files/Home.html"><i class="icon icon-twitter"></i></a><a#}
+                        {#href="./Home_files/Home.html"><i class="icon icon-google"></i></a><a#}
+                        {#href="./Home_files/Home.html"><i#}
+                        {#class="icon icon-dribbble"></i></a></span>#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#</div>#}
+                    </div>
+                </footer>
+            {% endblock footer %}
+
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+<?php
+
+namespace Brainstrap\Bundles\FrontBundle\Entity\Object;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ObjectItem
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class ObjectItem
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="caption", type="string", length=255)
+     */
+    private $caption;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Object", mappedBy="item")
+     */
+    private $bookings;
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set caption
+     *
+     * @param string $caption
+     * @return ObjectItem
+     */
+    public function setCaption($caption)
+    {
+        $this->caption = $caption;
+
+        return $this;
+    }
+
+    /**
+     * Get caption
+     *
+     * @return string 
+     */
+    public function getCaption()
+    {
+        return $this->caption;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->bookings = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add bookings
+     *
+     * @param \Brainstrap\Bundles\FrontBundle\Entity\Object\Object $bookings
+     * @return ObjectItem
+     */
+    public function addBooking(\Brainstrap\Bundles\FrontBundle\Entity\Object\Object $bookings)
+    {
+        $this->bookings[] = $bookings;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookings
+     *
+     * @param \Brainstrap\Bundles\FrontBundle\Entity\Object\Object $bookings
+     */
+    public function removeBooking(\Brainstrap\Bundles\FrontBundle\Entity\Object\Object $bookings)
+    {
+        $this->bookings->removeElement($bookings);
+    }
+
+    /**
+     * Get bookings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBookings()
+    {
+        return $this->bookings;
+    }
+}

@@ -1,0 +1,30 @@
+object_objectaddition:
+    path:     /
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectAddition:index" }
+
+object_objectaddition_show:
+    path:     /{id}/show
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectAddition:show" }
+
+object_objectaddition_new:
+    path:     /new
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectAddition:new" }
+
+object_objectaddition_create:
+    path:     /create
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectAddition:create" }
+    requirements: { _method: post }
+
+object_objectaddition_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectAddition:edit" }
+
+object_objectaddition_update:
+    path:     /{id}/update
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectAddition:update" }
+    requirements: { _method: post|put }
+
+object_objectaddition_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectAddition:delete" }
+    requirements: { _method: post|delete }

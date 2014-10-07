@@ -1,0 +1,126 @@
+{% extends 'BrainstrapBundlesFrontBundle::layout_content_detail.html.twig' %}
+{% set active_item_menu = "booking" %}
+{% set template_letter = "Б" %}
+{% set template_caption= "Бронирование" %}
+{% set template_descr="Бронирование" %}
+{% set content_right_caption = "Бронирование" %}
+{% set slider_enabled = false %}
+{% set detail_type = false %}
+{% set prefix_route = "object_objectbooking" %}
+
+{% block preview_content %}
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': flashMessage,
+        'body':'На этот период уже есть подтвержденные заявки',
+        'block_type':'attention'
+        } only %}
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': flashMessage,
+        'body':'Заявка одобрена. Клиент будет автоматически оповещен по e-mail',
+        'block_type':'success'
+        } only %}
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('removed') %}
+        {% include 'BrainstrapBundlesFrontBundle::Blocks/alert.html.twig' with {
+        'label': flashMessage,
+        'body':'Заявка не одобрена.',
+        'block_type':'error'
+        } only %}
+    {% endfor %}
+    <h2 class="h2">
+        Заявка №  {{ entity.id }} для номера
+        <br/>
+        <a href="{{ path('object_object_show', {id:entity.object.id}) }}">{{ entity.object.caption }}</a>
+    </h2>
+    <br/><br/>
+    <div class="form-group for_show">
+        <label class="label-control">
+            Имя:
+        </label>
+        {{ entity.name }}
+    </div>
+
+    <div class="form-group for_show">
+        <label class="label-control">
+            Фамилия:
+        </label>
+        {{ entity.sname }}
+    </div>
+
+    <div class="form-group for_show">
+        <label class="label-control">
+            Телефон:
+        </label>
+        {{ entity.phone|default('не указан') }}
+    </div>
+
+    <div class="form-group for_show">
+        <label class="label-control">
+            Email:
+        </label>
+        {{ entity.email|default('не указан') }}
+    </div>
+
+    <div class="form-group for_show">
+        <label class="label-control">
+            Количество взрослых:
+        </label>
+        {{ entity.countAdult }}
+    </div>
+
+    <div class="form-group for_show">
+        <label class="label-control">
+            Количество детей:
+        </label>
+        {{ entity.countChild }}
+    </div>
+
+    <div class="form-group for_show">
+        <label class="label-control">
+            Заезд:
+        </label>
+        {{ entity.startDate|date("d/m/Y") }}
+    </div>
+
+    <div class="form-group for_show">
+        <label class="label-control">
+            Выезд:
+        </label>
+        {{ entity.endDate|date("d/m/Y") }}
+    </div>
+
+
+    {{ form_start(edit_form) }}
+
+    <div class="form-group">
+        <label class="label-control">
+            Одобрен/не одобрен:
+        </label>
+        {{ form_widget(edit_form.approved, { 'attr': {'class': 'input-control validate-approved'} }) }}
+        <div class="inputErrors bs-alert bs-alert-error">
+            {{ form_errors(edit_form.approved) }}
+        </div>
+    </div>
+
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form.submit, { 'attr': {'class':'btn btn-large btn-border btn-border-brown'} }) }}
+    {{ form_end(edit_form) }}
+
+
+
+    <a href=" {{ path('object_objectbooking') }}" class="btn btn-large btn-darkbrown" style="float: left;">
+        Список
+    </a>
+
+    {{ form_start(delete_form) }}
+    {{ form_widget(delete_form.submit, { 'attr': {'class':'btn btn-small btn-border btn-border-brown btn-remove'} }) }}
+    {{ form_end(delete_form) }}
+
+    {#{{ entity.object.caption }}#}
+{% endblock preview_content %}

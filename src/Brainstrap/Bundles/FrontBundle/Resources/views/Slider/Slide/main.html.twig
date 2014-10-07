@@ -1,0 +1,39 @@
+{% for entity in entities if entity.photo is defined and entity.photo.path is defined %}
+
+    <li>
+        <img src="{{ entity.photo.path|apply_filter('photo_big_slider') }}" class="slide-img">
+
+        <div class="content-slide">
+            <div class="home-content">
+                <h2 class="slide-title" style="color:#{{ entity.colorCaption }}">
+                    {{ entity.caption }}
+                </h2>
+
+                <h3 class="slide-title" style="color:#{{ entity.colorSecondCaption }}">
+                    {{ entity.secondCaption }}
+                </h3>
+
+                <div class="dots-line">
+                    <span></span>
+                    <span></span>
+                    <span> </span>
+                </div>
+                <p class="slide-description" style="color:#{{ entity.colorDescription }}">
+                    {{ entity.description|escape|truncate(250) }}
+                </p>
+                <a href="{{ path("object_object") }}" class="btn btn-large btn-black">
+                        Забронировать номер
+                    </a>
+                <a href="{{ path('brainstrap_bundles_front_gallery') }}" class="btn btn-border btn-black">
+                    больше фотографий
+                </a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path("slider_slide") }}" class="btn btn-small btn-black">
+                        Редактировать слайдер
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+{% endfor %}

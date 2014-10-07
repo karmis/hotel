@@ -1,0 +1,39 @@
+<?php
+
+namespace Brainstrap\Bundles\FrontBundle\Entity\Slider;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
+
+/**
+ * SliderMain
+ *
+ * @ORM\Table()
+ * @FileStore\Uploadable
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity
+ */
+class Slider
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Slide", orphanRemoval=false, cascade={"persist", "remove"}, inversedBy="slides")
+     * @ORM\JoinTable(
+     *      name="Slider_Slide",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="slider_id", referencedColumnName="id")
+     *      },
+     *      inverseJoinColumns={@ORM\JoinColumn(name="slide_id", referencedColumnName="id")}
+     * )
+     */
+    public $slides;
+}

@@ -1,0 +1,12 @@
+object_objectbooking_new:
+    path:     /new/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:new" }
+
+object_objectbooking_create:
+    path:     /create/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:create" }
+    requirements: { _method: post }
+
+object_objectbooking_complete:
+    path:     /завершено/
+    defaults: { _controller: "BrainstrapBundlesFrontBundle:Object\ObjectBooking:complete" }
