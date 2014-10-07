@@ -1,2 +1,1 @@
-hotel.sites.brainstrap.ru
-========================
+http://hotel.sites.brainstrap.ru
